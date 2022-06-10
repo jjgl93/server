@@ -1,4 +1,4 @@
 - name: Copy file with owner and permissions
-  ansible.builtin.copy:
+  ansible.copy:
     src: /home/jjgutierrez/Escritorio/copy.txt
     dest: /home/usuario/Desktop/copy.txt
