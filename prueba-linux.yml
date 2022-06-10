@@ -1,9 +1,8 @@
-  hosts: all
-  tasks: 
-    - 
-      copy: ~
-      delegate_to: localhost
-      name: "Copy a single file"
-       src: /home/jjgutierrez/Escritorio/copy.txt
-       dest: /home/usuario/Desktop/copy.txt
-       remote_src: yes
+- hosts: all
+  tasks:
+  - name: Copy a single file
+    delegate_to: localhost
+    copy:
+      src: /home/copy.txt
+      dest: /home/usuario/Desktop/copy.txt
+      remote_src: yes
