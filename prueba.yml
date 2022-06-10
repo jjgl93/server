@@ -1,4 +1,4 @@
-- hosts: win
+- hosts: all
   tasks:
   - name: Copy a single file
     win_copy:
