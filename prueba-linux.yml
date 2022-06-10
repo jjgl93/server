@@ -1,5 +1,7 @@
- tasks:
-   - name: Copiando archivo del servidor al cliente
-     copy: 
-      src: '/home/jjgutierrez/Escritorio/copy.txt'
-      dest: '/home/usuario/Desktop/copy.txt'
+- hosts: all
+  tasks:
+  - name: Copy a single file
+    copy:
+      src: /home/jjgutierrez/Escritorio/copy.txt
+      dest: /home/usuario/Desktop/copy.txt
+      remote_src: yes
