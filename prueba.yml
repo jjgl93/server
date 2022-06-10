@@ -1,0 +1,13 @@
+- hosts: win
+
+  tasks:
+
+  - name: Copy File
+
+    win_copy:
+
+      src: /home/copy.txt
+
+      dest: C:\Users\Administrador\Desktop
+     
+      remote_src: yes
