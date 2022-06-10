@@ -1,7 +1,7 @@
-- hosts: win
+- hosts: all
   tasks:
   - name: Copy a single file
-    win_copy:
+    copy:
       src: /home/copy.txt
-      dest: C:\Users\Administrador\Desktop\copy.txt
+      dest: /root/copy.txt
       remote_src: yes
