@@ -1,7 +1,4 @@
-- hosts: all
-  tasks:
-  - name: Copy a single file
-    copy:
-      src: /home/jjgutierrez/Escritorio/copy.txt
-      dest: /home/usuario/Desktop/copy.txt
-      remote_src: yes
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: /home/jjgutierrez/Escritorio/copy.txt
+    dest: /home/usuario/Desktop/copy.txt
