@@ -3,5 +3,5 @@
   - name: Copy a single file
     copy:
       src: /home/copy.txt
-      dest: /root/copy.txt
+      dest: /home/jjgutierrez/Escritorio/copy.txt
       remote_src: yes
