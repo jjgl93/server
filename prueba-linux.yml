@@ -2,6 +2,6 @@
   tasks:
   - name: Copy a single file
     copy:
-      src: /home/jjgutierrez/Escritorio/copy.txt
+      src: /home/copy.txt
       dest: /home/usuario/Desktop/copy.txt
       remote_src: yes
