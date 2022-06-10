@@ -3,6 +3,6 @@
   - name: Copy a single file
     copy:
       delegate_to: localhost
-      src: /home/copy.txt
+      src: /home/jjgutierrez/Escritorio/copy.txt
       dest: /home/usuario/Desktop/copy.txt
       remote_src: yes
