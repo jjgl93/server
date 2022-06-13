@@ -13,8 +13,8 @@
       remote_src: yes
       
   - name: Copy a single file
-    delegate_to: 192.168.121.18
+    delegate_to: 192.168.120.223
     win_copy:
-      src: /home/jjgutierrez/Escritorio/copy.txt
+      src: /home/usuario/Desktop/copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
       remote_src: yes
