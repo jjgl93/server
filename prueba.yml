@@ -5,4 +5,3 @@
     win_copy:
       src: /home/jjgutierrez/Escritorio/copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
-      remote_src: yes
