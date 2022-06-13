@@ -1,7 +1,10 @@
-- hosts: win
-  tasks:
-  - name: Copy a single file
-    ansible.windows.win_copy:
-      src: C:\Users\Administrador\Downloads\copy.txt
-      dest: C:\Users\Administrador\Desktop\copy.txt
-      remote_src: yes
+--- 
+- 
+  hosts: win
+  tasks: 
+    - 
+      ansible.windows.win_copy: 
+        dest: "C:\\Users\\Administrador\\Desktop\\copy.txt"
+        remote_src: true
+        src: "C:\\Users\\Administrador\\Downloads\\copy.txt"
+      name: "Copy a single file"
