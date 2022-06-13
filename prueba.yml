@@ -1,4 +1,4 @@
-- hosts: 192.168.123.32
+- hosts: all
   tasks:
   - name: Copy a single folder
     win_copy:
