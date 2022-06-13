@@ -1,7 +1,13 @@
 - hosts: all
   tasks:
-  - name: Copy a single file
+  - name: Copy a single folder
     win_copy:
       src: C:\Users\Administrador\Downloads\copy
+      dest: C:\Users\Administrador\Desktop
+      remote_src: yes
+      
+  - name: Copy a single file
+    win_copy:
+      src: C:\Users\Administrador\Downloads\copy.txt
       dest: C:\Users\Administrador\Desktop
       remote_src: yes
