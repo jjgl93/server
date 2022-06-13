@@ -11,10 +11,4 @@
       src: C:\Users\Administrador\Downloads\copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
       remote_src: yes
-      
-  - name: Copy a single file
-    delegate_to: 192.168.120.223
-    win_copy:
-      src: /home/usuario/Desktop/copy.txt
-      dest: C:\Users\Administrador\Desktop\copy.txt
-      remote_src: yes
+     
