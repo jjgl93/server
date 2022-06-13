@@ -7,7 +7,7 @@
       remote_src: yes
       
   - name: Copy a single file
-    win_copy:
+    ansible.builtin.copy:
       src: /home/copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
       remote_src: no
