@@ -1,7 +1,6 @@
 - hosts: all
   tasks:
   - name: Copy a single file
-    delegate_to: localhost
     copy:
       src: /home/copy.txt
       dest: /home/usuario/Desktop/copy.txt
