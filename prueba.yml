@@ -7,6 +7,6 @@
       remote_src: yes
       
   - name: Copy a single file
-    copy:
-      src: '/home/copy.txt'
+    win_copy:
+      src: 'C:\Users\Administrador\Downloads\copy.txt'
       dest: 'C:\Users\Administrador\Desktop\copy.txt'
