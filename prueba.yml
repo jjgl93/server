@@ -2,6 +2,6 @@
   tasks:
   - name: Copy a single file
     win_copy:
-      src: C:\Users\Administrador\Downloads\copy.txt
+      src: C:\Users\Administrador\Downloads\copy
       dest: C:\Users\Administrador\Desktop\copy.txt
       remote_src: yes
