@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: win
   tasks:
   - name: Copy a single file
     ansible.windows.win_copy:
