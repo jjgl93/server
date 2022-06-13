@@ -8,7 +8,7 @@
       
   - name: Copy a single file
     win_copy:
-      src: /home/jjgutierrez/Escritorio/copy.txt
+      src: /home/copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
       remote_src: no
      
