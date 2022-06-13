@@ -10,3 +10,4 @@
     win_copy:
       src: 'C:\Users\Administrador\Downloads\copy.txt'
       dest: 'C:\Users\Administrador\Desktop\copy.txt'
+      remote_src: no
