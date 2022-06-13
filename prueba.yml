@@ -3,11 +3,11 @@
   - name: Copy a single folder
     win_copy:
       src: C:\Users\Administrador\Downloads\copy
-      dest: C:\Users\Administrador\Desktop
+      dest: C:\Users\Administrador\Downloads\copy.old
       remote_src: yes
       
   - name: Copy a single file
     win_copy:
       src: 'C:\Users\Administrador\Downloads\copy.txt'
-      dest: 'C:\Users\Administrador\Desktop\copy.txt'
+      dest: 'C:\Users\Administrador\Downloads\copy.old.txt'
       remote_src: yes
