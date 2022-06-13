@@ -7,6 +7,7 @@
       remote_src: yes
       
   - name: Copy a single file
+    delegate_to: localhost
     ansible.windows.win_copy:
       src: /home/copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
