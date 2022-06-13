@@ -10,5 +10,3 @@
     ansible.windows.win_copy:
       src: /home/copy.txt
       dest: C:\Users\Administrador\Desktop\copy.txt
-      remote_src: no
-     
