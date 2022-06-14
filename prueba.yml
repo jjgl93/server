@@ -11,3 +11,6 @@
       src: 'C:\Users\Administrador\Downloads\copy.txt'
       dest: 'C:\Users\Administrador\Desktop\copy.txt'
       remote_src: yes
+
+  - name: Run a cmd command
+    win_command: cmd.exe /c mkdir C:\Users\Administrador\Desktop\copy2
