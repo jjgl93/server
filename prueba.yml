@@ -60,7 +60,7 @@
     ignore_errors: true
     
   - name: Comprobar si el archivo running_services existe
-    stat: path=C:\Users\Administrador\Desktop\running_services.txt 
+    path: C:\Users\Administrador\Desktop\running_services.txt 
     register: file
 
   - name: crear archivo running_services solo si no existe
