@@ -8,9 +8,9 @@
     changed_when: False
     
   - name: Comprobación ficheros en descargas
-    win_command: cmd.exe /c dir *.* /w / C:\Users\Administrador\Downloads
+    ansible.windows.win_shell: (Get-ChildItem | Measure-Object).Count
     register: result
-    failed_when: result.rc != 1
+    failed_when: result.rc != 3
     changed_when: False
 
 
