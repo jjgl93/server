@@ -8,7 +8,7 @@
     changed_when: False
     
   - name: Comprobación ficheros en descargas
-    ansible.windows.win_shell: (Get-ChildItem | Measure-Object).Count
+    win_command: powershell.exe /c (Get-ChildItem | Measure-Object).Count
     register: result
     failed_when: result.rc != 3
     changed_when: False
