@@ -40,3 +40,7 @@
 
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
+    register: services
+    
+  - name: Ver variable
+    debug: var=services
