@@ -36,4 +36,7 @@
       state: absent
            
   - name: Run a cmd command
-    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt      
+    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt
+
+  - name: Run a cmd command
+    win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
