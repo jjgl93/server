@@ -9,6 +9,8 @@
     
   - name: Comprobación ficheros en descargas
     win_command: powershell.exe /c (Get-ChildItem | Measure-Object).Count
+    args:
+      chdir: C:\Users\Administrador\Downloads
     register: result
     failed_when: result.rc != 2
     changed_when: False
