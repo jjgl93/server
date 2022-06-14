@@ -43,4 +43,4 @@
     register: services
     
   - name: Ver variable
-    debug: var=services
+    debug: var=services.failed
