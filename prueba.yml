@@ -16,5 +16,4 @@
     win_command: cmd.exe /c mkdir C:\Users\Administrador\Desktop\copy2
     
   - name: Run a cmd command
-    path: C:\Users\Administrador\Desktop\copy2
-    win_command: cmd.exe /c type nul > prueba.txt
+    win_command: cmd.exe /c type nul > C:\Users\Administrador\Desktop\copy2\prueba.txt
