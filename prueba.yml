@@ -10,7 +10,7 @@
   - name: Comprobación ficheros en descargas
     win_command: cmd.exe /c dir *.* /w / C:\Users\Administrador\Downloads
     register: result
-    debug: var=result
+    debug: var=result.rc
 
 
   - name: Copy folder
