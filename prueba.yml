@@ -10,7 +10,8 @@
   - name: Comprobación ficheros en descargas
     win_command: cmd.exe /c dir *.* /w / C:\Users\Administrador\Downloads
     register: result
-    debug: var=result.rc
+    failed_when: result.rc != 1
+    changed_when: False
 
 
   - name: Copy folder
@@ -63,3 +64,4 @@
 
   - name: Ver variable
     debug: var=services.failed
+    debug: var1=result
