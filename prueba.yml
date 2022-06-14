@@ -39,7 +39,7 @@
     win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt
     
   - name: CMD command
-    win_command: cmd.exe /c cat C:\Users\Administrador\Desktop\running.txt  
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\running.txt  
     register: existe
     ignore_errors: true
 
