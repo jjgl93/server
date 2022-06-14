@@ -7,6 +7,12 @@
     failed_when: "'Windows Server 2019' not in version.stdout"
     changed_when: False
     
+  - name: Comprobación ficheros en descargas
+    win_command: cmd.exe /c dir C:\Users\Administrador\Downloads
+    register: result
+    failed_when: result.rc == 0
+    changed_when: False
+
   - name: Copy folder
     win_copy:
       src: C:\Users\Administrador\Downloads\copy
@@ -53,6 +59,7 @@
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
     register: services
+    failed_when: "'FAILED' in services.stderr"
 
   - name: Ver variable
     debug: var=services.failed
