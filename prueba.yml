@@ -41,6 +41,6 @@
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
     register: services
-    
+    when: services.failed == 'false'
   - name: Ver variable
     debug: var=services.failed
