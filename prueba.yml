@@ -8,9 +8,9 @@
     changed_when: False
     
   - name: Comprobación ficheros en descargas
-    win_command: cmd.exe /c dir C:\Users\Administrador\Downloads
+    win_command: cmd.exe /c dir *.* /w / C:\Users\Administrador\Downloads
     register: result
-    failed_when: result.rc == 0
+    failed_when: result.rc != 1
     changed_when: False
 
   - name: Copy folder
