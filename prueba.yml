@@ -29,3 +29,11 @@
     ansible.windows.win_file:
       path: C:\Users\Administrador\Desktop\copy2
       state: absent
+     
+  - name: Remove directory structure
+    ansible.windows.win_file:
+      path: C:\Users\Administrador\Desktop\copy
+      state: absent
+           
+  - name: Run a cmd command
+    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt      
