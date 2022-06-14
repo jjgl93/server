@@ -8,11 +8,9 @@
     changed_when: False
     
   - name: Comprobación ficheros en descargas
-    win_command: powershell.exe /c (Get-ChildItem | Measure-Object).Count
-    args:
-      chdir: C:\Users\Administrador\Downloads
+    win_command: cmd.exe /c cd C:\Users\Administrador\Downloads & dir
     register: result
-    failed_when: result.rc != 2
+    failed_when: "'1 archivos' not in result.stdout"
     changed_when: False
 
 
