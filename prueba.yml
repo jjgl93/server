@@ -58,10 +58,15 @@
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\running.txt  
     register: existe
     ignore_errors: true
+    
+  - name: Comprobar si el archivo running_services existe
+    stat: path=C:\Users\Administrador\Desktop\running_services.txt 
+    register: file
 
-  - name: CMD command
+  - name: crear archivo running_services solo si no existe
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
     register: services
+    when: file.stat.exists
     failed_when: "'FAILED' in services.stderr"
 
   - name: Ver variable
