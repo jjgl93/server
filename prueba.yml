@@ -6,16 +6,26 @@
       dest: C:\Users\Administrador\Desktop
       remote_src: yes
 
-      
   - name: Copy a single file
     win_copy:
       src: 'C:\Users\Administrador\Downloads\copy.txt'
       dest: 'C:\Users\Administrador\Desktop\copy.txt'
       remote_src: yes
 
-
-  - name: Run a cmd command
-    win_command: cmd.exe /c mkdir C:\Users\Administrador\Desktop\copy2
+  - name: Create directory structure
+    ansible.windows.win_file:
+    path: C:\Users\Administrador\Desktop\copy2
+    state: directory
     
   - name: Run a cmd command
     win_command: cmd.exe /c type nul > C:\Users\Administrador\Desktop\copy2\prueba.txt
+
+  - name: Remove a file, if present
+    ansible.windows.win_file:
+    path: C:\Users\Administrador\Desktop\copy.txt
+    state: absent
+    
+  - name: Remove directory structure
+    ansible.windows.win_file:
+    path: C:\Users\Administrador\Desktop\copy2
+    state: absent
