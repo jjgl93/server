@@ -11,8 +11,7 @@
     win_command: cmd.exe /c dir *.* /w / C:\Users\Administrador\Downloads
     register: result
     debug: var=result
-    failed_when: result.rc != 1
-    changed_when: False
+
 
   - name: Copy folder
     win_copy:
