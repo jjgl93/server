@@ -10,7 +10,9 @@
   - name: Comprobación ficheros en descargas
     win_command: cmd.exe /c cd C:\Users\Administrador\Downloads & dir
     register: result
-    failed_when: "'1 archivos' not in result.stdout"
+    failed_when: 
+      - "'1 archivos' not in result.stdout"
+      -  result.rc != 0
     changed_when: False
 
 
