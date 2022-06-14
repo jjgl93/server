@@ -63,5 +63,4 @@
     failed_when: "'FAILED' in services.stderr"
 
   - name: Ver variable
-    debug: var=services.failed
-    debug: var1=result
+    debug: var=result
