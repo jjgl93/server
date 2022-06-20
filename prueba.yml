@@ -56,17 +56,7 @@
     register: existe
     ignore_errors: true
     
-  - name: Comprobar si existe el archivo
-    win_command: cmd.exe /c dir C:\Users\Administrador\Desktop\datos_red.txt
-    register: datred
-    changed_when: False
-    ignore_errors: true
-      
-  - name: Crear archivo si no existe
-    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
-    failed_when: 
-      - "'No se encuentra el archivo' not in datred.stderr"
-    ignore_errors: true
+
     
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
