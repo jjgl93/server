@@ -55,21 +55,27 @@
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\running.txt  
     register: existe
     ignore_errors: true
-    
-  - name: Ver si existe el archivo
-    stat: 
-      path: C:\Users\Administrador\Desktop\datos_red.txt
-    register: file
 
-  - name: Crear archivo si no existe
-    win_command: cmd.exe /c ipconfig C:\Users\Administrador\Desktop\datos_red.txt 
-    when: not file.stat.exists
+  - name: Download the Apache installer
+    win_get_url:
+      url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+      dest: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
+
+  - name: Install MSI
+    win_package: 
+      path: C:\ansible_examples\httpd-2.2.25-win32-x86-no_ssl.msi
+      state: present
 
     
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
-    register: services
-    failed_when: "'FAILED' in services.stderr"
+    register: services1
+    failed_when: "'FAILED' in services1.stderr"
+    
+  - name: CMD command
+    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
+    register: services2
+    failed_when: "'FAILED' in services2.stderr"
 
   - name: Ver variable
     debug: var=datred
