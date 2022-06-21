@@ -66,6 +66,7 @@
     win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
     failed_when: 
       - "'No se encuentra el archivo' not in datred.stderr"
+    changed_when: False
     ignore_errors: true
 
     
@@ -75,4 +76,4 @@
     failed_when: "'FAILED' in services.stderr"
 
   - name: Ver variable
-    debug: var=result
+    debug: var=datred
