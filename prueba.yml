@@ -57,7 +57,8 @@
     ignore_errors: true
     
   - name: Ver si existe el archivo
-    stat: path=C:\Users\Administrador\Desktop\datos_red.txt
+    stat: 
+      path: C:\Users\Administrador\Desktop\datos_red.txt
     register: file
 
   - name: Crear archivo si no existe
