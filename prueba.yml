@@ -65,8 +65,7 @@
   - name: Crear archivo si no existe
     win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
     failed_when: 
-      - "'No se encuentra el archivo' not in datred.stderr"
-    changed_when: False
+      - "'datos_red.txt' in datred.stdout"
     ignore_errors: true
 
     
