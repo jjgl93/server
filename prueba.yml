@@ -62,11 +62,11 @@
     changed_when: False
     ignore_errors: true
       
-  - name: Crear archivo si no existe
-    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
-    failed_when: 
-      - "'datos_red.txt' in datred.stdout"
-    ignore_errors: true
+  - name: Crear datos_red si no existe
+    ansible.builtin.file:
+    path: C:\Users\Administrador\Desktop\datos_red.txt
+    state: touch
+    mode: '0755'
 
     
   - name: CMD command
