@@ -43,7 +43,7 @@
 
   - name: Borrar archivo si existe
     ansible.windows.win_file:
-      path: C:\Users\Administrador\Desktop\{{ archivo1 }}'
+      path: C:\Users\Administrador\Desktop\copy.txt'
       state: absent
     
   - name: Borrar Directorio
@@ -53,7 +53,7 @@
      
   - name: Borrar Directorio
     ansible.windows.win_file:
-      path: C:\Users\Administrador\Desktop\{{ directorio }}'
+      path: C:\Users\Administrador\Desktop\copy'
       state: absent
     
   - name: Prueba de arhivo inexistente para ignorar error
