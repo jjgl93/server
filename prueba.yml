@@ -63,12 +63,12 @@
   
   - name: Parar servicio
     win_service:
-      name: EventLog
+      name: FontCache
       state: stopped
     
   - name: Arrancar servicio
     win_service:
-      name: EventLog
+      name: FontCache
       state: Started 
       
   - name: Añadir variable de entorno
