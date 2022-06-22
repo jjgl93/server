@@ -1,13 +1,13 @@
 - hosts: all
   tasks:
   
-  - name: Comprobación de sistema
+  - name: Comprobando que el sistema es Server 2019
     win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
     register: version
     failed_when: "'Windows Server 2019' not in version.stdout"
     changed_when: False
     
-  - name: Comprobación ficheros en descargas
+  - name: Comprobación fichero en descargas
     win_command: cmd.exe /c cd C:\Users\Administrador\Downloads & dir
     register: result
     failed_when: 
@@ -16,37 +16,37 @@
     changed_when: False
 
 
-  - name: Copy folder
+  - name: Copiar Directorio
     win_copy:
       src: C:\Users\Administrador\Downloads\copy
       dest: C:\Users\Administrador\Desktop
       remote_src: yes
 
-  - name: Copy file
+  - name: Copiar Archivo
     win_copy:
       src: 'C:\Users\Administrador\Downloads\copy.txt'
       dest: 'C:\Users\Administrador\Desktop\copy.txt'
       remote_src: yes
 
-  - name: Create directory
+  - name: Crear Directorio
     ansible.windows.win_file:
       path: C:\Users\Administrador\Desktop\copy2
       state: directory
     
-  - name: Create file cmd command
+  - name: Crear archivo con CMD
     win_command: cmd.exe /c type nul > C:\Users\Administrador\Desktop\copy2\prueba.txt
 
-  - name: Remove a file, if present
+  - name: Borrar archivo si existe
     ansible.windows.win_file:
       path: C:\Users\Administrador\Desktop\copy.txt
       state: absent
     
-  - name: Remove directory
+  - name: Borrar Directorio
     ansible.windows.win_file:
       path: C:\Users\Administrador\Desktop\copy2
       state: absent
      
-  - name: Remove directory
+  - name: Borrar Directorio
     ansible.windows.win_file:
       path: C:\Users\Administrador\Desktop\copy
       state: absent
@@ -56,11 +56,27 @@
     register: existe
     ignore_errors: true
 
-  - name: Download the Apache installer
+  - name: Descargar MSI
     win_get_url:
       url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
       dest: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
-
+  
+  - name: Parar servicio
+    win_service:
+      name: EventLog
+      state: stopped
+    
+  - name: Arrancar servicio
+    win_service:
+      name: EventLog
+      state: Started 
+      
+  - name: Añadir variable de entorno
+    win_environment:
+      state: present
+      name: NewVariable
+      value: New Value
+      level: machine
     
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
@@ -73,4 +89,4 @@
     failed_when: "'FAILED' in services2.stderr"
 
   - name: Ver variable
-    debug: var=datred
+    debug: var=services2
