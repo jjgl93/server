@@ -1,5 +1,6 @@
-- hosts: all
-- vars:
+- name: Playbook de prueba  
+  hosts: all
+  vars:
     archivo1: copy.txt
     directorio: copy
     
