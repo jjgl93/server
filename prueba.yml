@@ -61,14 +61,6 @@
       url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
       dest: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
 
-  - name: Install MSI
-    win_package: 
-      path: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
-      arguments:
-        - /install
-        - /passive
-        - /norestart
-
     
   - name: CMD command
     win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
