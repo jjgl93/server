@@ -1,4 +1,8 @@
 - hosts: all
+- vars:
+    archivo1: copy.txt
+    directorio: copy
+    
   tasks:
   
   - name: Comprobando que el sistema es Server 2019
@@ -18,14 +22,14 @@
 
   - name: Copiar Directorio
     win_copy:
-      src: C:\Users\Administrador\Downloads\copy
+      src: C:\Users\Administrador\Downloads\{{ directorio }}
       dest: C:\Users\Administrador\Desktop
       remote_src: yes
 
   - name: Copiar Archivo
     win_copy:
-      src: 'C:\Users\Administrador\Downloads\copy.txt'
-      dest: 'C:\Users\Administrador\Desktop\copy.txt'
+      src: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
+      dest: 'C:\Users\Administrador\Desktop\{{ archivo1 }}'
       remote_src: yes
 
   - name: Crear Directorio
@@ -38,7 +42,7 @@
 
   - name: Borrar archivo si existe
     ansible.windows.win_file:
-      path: C:\Users\Administrador\Desktop\copy.txt
+      path: C:\Users\Administrador\Desktop\{{ archivo1 }}'
       state: absent
     
   - name: Borrar Directorio
@@ -48,7 +52,7 @@
      
   - name: Borrar Directorio
     ansible.windows.win_file:
-      path: C:\Users\Administrador\Desktop\copy
+      path: C:\Users\Administrador\Desktop\{{ directorio }}'
       state: absent
     
   - name: Prueba de arhivo inexistente para ignorar error
