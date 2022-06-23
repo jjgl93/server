@@ -108,6 +108,7 @@
       src: C:\Users\Administrador\Desktop\datos_red.txt
       dest: C:\Users\Administrador\Downloads\datos_red.txt 
       backup: yes 
+      remote_src: yes
 
   - name: Ver variable
     debug: var=services2
