@@ -23,14 +23,14 @@
 
   - name: Copiar Directorio
     win_copy:
-      src: C:\Users\Administrador\Downloads\{{ directorio }}
+      src: C:\Users\Administrador\Downloads\copy
       dest: C:\Users\Administrador\Desktop
       remote_src: yes
 
   - name: Copiar Archivo
     win_copy:
-      src: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
-      dest: 'C:\Users\Administrador\Desktop\{{ archivo1 }}'
+      src: 'C:\Users\Administrador\Downloads\copy.txt'
+      dest: 'C:\Users\Administrador\Desktop\copy.txt'
       remote_src: yes
 
   - name: Crear Directorio
