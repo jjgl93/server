@@ -97,7 +97,7 @@
     register: existe
     ignore_errors: true
     
-  - name: CMD crear ipconfig en archivo solo si no existe, si existe dejarlo tal y como está
+  - name: CMD crear datos_red si no existe, no tocar si existe
     win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
     when: "'El sistema no puede encontrar el archivo especificado' in existe.stderr"
     
