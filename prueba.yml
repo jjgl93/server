@@ -114,3 +114,4 @@
 
   - name: Ver variable
     debug: var=existe
+    msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
