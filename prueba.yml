@@ -121,3 +121,6 @@
   - name: Ver variable
     debug:
       msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
+
+  - name: Change the working directory to somedir/ before executing the command
+    ansible.windows.win_shell: Clear-RecycleBin
