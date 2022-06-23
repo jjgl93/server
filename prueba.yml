@@ -11,14 +11,6 @@
     register: version
     failed_when: "'Windows Server 2019' not in version.stdout"
     changed_when: False
-    
-  - name: Comprobación fichero en descargas
-    win_command: cmd.exe /c cd C:\Users\Administrador\Downloads & dir
-    register: result
-    failed_when: 
-      - "'1 archivos' not in result.stdout"
-      -  result.rc != 0
-    changed_when: False
 
   - name: Crear Directorio
     ansible.windows.win_file:
