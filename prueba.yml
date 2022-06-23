@@ -65,7 +65,7 @@
       path: 'C:\Users\Administrador\Desktop\{{ directorio }}'
       state: absent
 
-  - name: Comprobar si datos_red existe
+  - name: Comprobar si el MSI existe
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
     register: msi
     ignore_errors: true
