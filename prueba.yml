@@ -65,10 +65,16 @@
       path: 'C:\Users\Administrador\Desktop\{{ directorio }}'
       state: absent
 
+  - name: Comprobar si datos_red existe
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
+    register: existe2
+    ignore_errors: true
+    
   - name: Descargar MSI
     win_get_url:
       url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
       dest: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
+    when: "'El sistema no puede encontrar el archivo especificado' in existe.stderr"
   
   - name: Parar servicio
     win_service:
