@@ -113,4 +113,5 @@
       state: absent
 
   - name: Ver variable
-    debug: var={{archivo1}}
+    debug:
+      msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
