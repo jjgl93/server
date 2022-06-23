@@ -109,7 +109,7 @@
     
   - name: Borrar Directorio
     ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Desktop\{{ directorio }}'
+      path: 'C:\Users\Administrador\Downloads\{{ directorio }}'
       state: absent
 
   - name: Ver variable
