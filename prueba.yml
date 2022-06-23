@@ -1,5 +1,5 @@
 - name: Playbook de prueba  
-  hosts: all
+  hosts: win19
   vars:
     archivo1: copy.txt
     directorio: copy
