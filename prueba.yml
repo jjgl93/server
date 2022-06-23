@@ -28,7 +28,7 @@
   - name: Crear Archivo
     ansible.windows.win_file:
       path: C:\Users\Administrador\Downloads\{{ archivo1 }}
-      state: directory
+      state: touch
       
   - name: Copiar Directorio
     win_copy:
