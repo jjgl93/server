@@ -66,7 +66,7 @@
       state: absent
     
   - name: Prueba de arhivo inexistente para ignorar error
-    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\running.txt  
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\datos_red.txt  
     register: existe
     ignore_errors: true
 
@@ -99,8 +99,7 @@
     
   - name: CMD command
     win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datos_red.txt  
-    register: services2
-    failed_when: "'FAILED' in services2.stderr"
+    when: "'El sistema no puede encontrar el archivo especificado' in existe.stderr"
     
       
   - name: Copiar archivo haciendo backup
