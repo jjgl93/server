@@ -1,8 +1,8 @@
 - name: Playbook de prueba  
   hosts: win19
-  vars_prompt:
-    name: directorio
-    prompt: Introduce un directorio
+  vars:
+    archivo1: copy.txt
+    directorio: copy
     
   tasks:
   
@@ -19,7 +19,7 @@
    
   - name: Crear Archivo
     ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Downloads\copy.txt'
+      path: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
       state: touch
       
   - name: Copiar Directorio
@@ -30,8 +30,8 @@
 
   - name: Copiar Archivo
     win_copy:
-      src: 'C:\Users\Administrador\Downloads\copy.txt'
-      dest: 'C:\Users\Administrador\Desktop\copy.txt'
+      src: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
+      dest: 'C:\Users\Administrador\Desktop\{{ archivo1 }}'
       remote_src: yes
 
   - name: Crear Directorio
@@ -44,7 +44,7 @@
 
   - name: Borrar archivo si existe
     ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Desktop\copy.txt'
+      path: 'C:\Users\Administrador\Desktop\{{ archivo1 }}'
       state: absent
     
   - name: Borrar Directorio
@@ -102,7 +102,7 @@
       
   - name: Borrar archivo si existe
     ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Downloads\copy.txt'
+      path: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
       state: absent
     
   - name: Borrar Directorio
@@ -112,8 +112,7 @@
 
   - name: Ver variable
     debug:
-      msg: "El directorio {{ directorio }} y el archivo copy.txt se han creado y eliminado correctamente."
+      msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
 
   - name: Vaciar papelera de reciclaje
     win_command: cmd.exe /c rd /s /q C:\$Recycle.bin
-
