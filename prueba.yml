@@ -139,5 +139,15 @@
     debug:
       msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
 
+  - name: Ver fecha
+    win_command: cmd.exe /c DATE /T  
+    register: fecha
+    
+  - name: Backup BD SQL Server
+    win_copy:
+      src: C:\Program Files\Microsoft SQL Server
+      dest: C:\Users\Administrador\Desktop\backup-BD-{{ fecha }}
+      remote_src: yes
+
   - name: Vaciar papelera de reciclaje
     win_command: cmd.exe /c rd /s /q C:\$Recycle.bin
