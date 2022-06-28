@@ -67,11 +67,6 @@
       url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
       dest: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
     when: "'El sistema no puede encontrar el archivo especificado' in msi.stderr"
-    
-  - name: Descargar SQL
-    win_get_url:
-      url: https://go.microsoft.com/fwlink/?linkid=866662
-      dest: C:\Users\Administrador\Desktop
   
   - name: Parar servicio
     win_service:
