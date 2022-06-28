@@ -139,15 +139,23 @@
     debug:
       msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
 
-  - name: Ver fecha
-    win_command: cmd.exe /c DATE /T  
+  - name: Crear fecha.txt
+    win_command: cmd.exe /c DATE /T > C:\Users\Administrador\Desktop\fecha.txt
+    
+  - name: Modificar fecha.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content C:\Users\Administrador\Desktop\fecha.txt) | foreach-object {$_ -replace "/", "-"} | set-content C:\Users\Administrador\Desktop\fecha.txt
+
+  - name: Crear fecha.txt
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\fecha.txt
     register: fecha
-   
+    
   - name: Ver variable
     debug: var=fecha
         
   - name: BACKUP BD SQL Server
-    win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" C:\Users\Administrador\Desktop\backup-BD /E/H/C/I
+    win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" C:\Users\Administrador\Desktop\backup-BD-{{ fecha }} /E/H/C/I
 
   - name: Vaciar papelera de reciclaje
     win_command: cmd.exe /c rd /s /q C:\$Recycle.bin
