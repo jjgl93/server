@@ -90,10 +90,16 @@
     register: services1
     failed_when: "'FAILED' in services1.stderr"
     
-  - name: Crear Directorio
+  - name: Comprobar si existe datosRed
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\datosRed 
+    register: datosRed
+    ignore_errors: true
+    
+  - name: Crear Directorio si no existe
     ansible.windows.win_file:
       path: C:\Users\Administrador\Desktop\datosRed
       state: directory
+    when: "'El sistema no puede encontrar el archivo especificado' in existe.stderr"
     
   - name: Comprobar si datos_red existe
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\datosRed\datos_red.txt  
