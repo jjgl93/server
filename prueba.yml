@@ -153,6 +153,11 @@
     
   - name: Ver variable
     debug: var=fecha
+    
+  - name: Crear Directorio
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}'
+      state: directory
         
   - name: BACKUP BD SQL Server
     win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" C:\Users\Administrador\Desktop\backup-BD-{{ fecha.stdout_lines }} /E/H/C/I
