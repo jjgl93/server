@@ -111,7 +111,7 @@
       state: absent
       
   - name: Enlace simbólico de datos_red,txt a Downloads
-    win_command: cmd.exe /c Mklink/D C:\Users\Administrador\Desktop\datos_red.txt C:\Users\Administrador\Downloads\datos_red.txt 
+    win_command: cmd.exe /c Mklink/D C:\Users\Administrador\Downloads\datos_red.txt C:\Users\Administrador\Desktop\datos_red.txt 
     
   - name: Ver variable
     debug:
