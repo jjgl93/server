@@ -121,7 +121,18 @@
       path: 'C:\Users\Administrador\Downloads\{{ directorio }}'
       state: absent
       
-  - name: Enlace simbólico de datos_red,txt a Downloads
+  - name: Comprobar si existe enlace simbolico
+    win_command: cmd.exe /c type C:\Users\Administrador\Downloads\datosRed 
+    register: enlacesim
+    ignore_errors: true
+    
+  - name: borrar directorio si existe
+    ansible.windows.win_file:
+      path: C:\Users\Administrador\Downloads\datosRed
+      state: absent
+    when: "'El sistema no puede encontrar el archivo especificado' not in enlacesim.stderr"
+  
+  - name: Enlace simbólico de datosRed a Downloads
     win_command: cmd.exe /c Mklink/D C:\Users\Administrador\Downloads\datosRed C:\Users\Administrador\Desktop\datosRed
     
   - name: Ver variable
