@@ -147,7 +147,7 @@
     debug: var=fecha
         
   - name: BACKUP BD SQL Server
-    win_command: cmd.exe /c Xcopy C:\Program Files\Microsoft SQL Server C:\Users\Administrador\Desktop\backup-BD /E/H/C/I
+    win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" C:\Users\Administrador\Desktop\backup-BD /E/H/C/I
 
   - name: Vaciar papelera de reciclaje
     win_command: cmd.exe /c rd /s /q C:\$Recycle.bin
