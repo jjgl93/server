@@ -142,11 +142,14 @@
   - name: Ver fecha
     win_command: cmd.exe /c DATE /T  
     register: fecha
+   
+  - name: Ver variable
+    debug: var=fecha
     
   - name: Backup BD SQL Server
     win_copy:
       src: C:\Program Files\Microsoft SQL Server
-      dest: C:\Users\Administrador\Desktop\backup-BD-{{ fecha }}
+      dest: C:\Users\Administrador\Desktop\backup-BD
       remote_src: yes
 
   - name: Vaciar papelera de reciclaje
