@@ -157,9 +157,14 @@
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\fecha.txt
     register: fecha
 
+  - name: Comprobar si existe carpeta Backup
+    win_command: cmd.exe /c type "C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}" 
+    register: backupsino
+    ignore_errors: true
         
   - name: BACKUP BD SQL Server
     win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" "C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}" /E/H/C/I
+    when: "'El sistema no puede encontrar el archivo especificado' in backupsino.stderr"
     
   - name: Borrar fecha.txt
     ansible.windows.win_file:
