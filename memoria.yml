@@ -59,6 +59,7 @@
       state: absent
       
   - name: Parar ejecución si memoria menor de 2 GB
+    win_command: cmd.exe /c SET BLUENCE_HOME
     failed_when: memory.stdout_lines < {{ limite }}
       
   - name: Ver variable
