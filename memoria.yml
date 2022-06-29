@@ -59,11 +59,7 @@
       path: 'C:\Users\Administrador\Desktop\memoria2.txt'
       state: absent
       
-  - name: Convertir salida memory a variable
-    debug: var=memory.stdout_lines
-    register: var
+  - debug:
+      msg: "Sin espacio"
+    when: memory.stdout | int < 80
     
-  - name: Parar ejecución dependiendo de la memoria
-    win_command: cmd.exe /c ipconfig
-    failed_when: "{{ var }}" == "{{ limite }}"
-    changed_when: False
