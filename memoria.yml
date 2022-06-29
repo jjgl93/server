@@ -11,7 +11,8 @@
     
     
   - name: Comprobando que el sistema es Server 2019
-    win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
-    register: version
-    failed_when: "'Windows Server 2019' not in version.stdout"
-    changed_when: False
+    win_command: cmd.exe /c SET BLUENCE_HOME
+    register: HDD
+
+  - name: Ver variable
+    debug: var=HDD
