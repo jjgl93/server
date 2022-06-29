@@ -20,6 +20,8 @@
   - name: Comprobar memoria si está en D:\
     win_command: cmd.exe /c "fsutil volume diskfree c:"
     register: memory
+    failed_when: "'D:\' not in HDD.stdout"
+    changed_when: False
 
   - name: Ver variable
     debug: var=memory
