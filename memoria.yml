@@ -31,7 +31,12 @@
     ansible.windows.win_powershell:
       script: |
         (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace "-", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
-    
+
+  - name: Modificar memoria.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace " ", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
+        
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria.txt
     register: memory
