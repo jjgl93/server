@@ -147,22 +147,10 @@
       script: |
         (get-content C:\Users\Administrador\Desktop\fecha.txt) | foreach-object {$_ -replace "/", "-"} | set-content C:\Users\Administrador\Desktop\fecha.txt
 
-  - name: Crear fecha.txt
+  - name: Guardar fecha en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\fecha.txt
     register: fecha
-    
-  - name: Crear Directorio
-    ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}'
-      state: directory
-    register: dirfecha
-    
-  - name: Buscar directorio BD
-    win_command: cmd.exe /c dir "C:\Users\Administrador\Desktop\backup*" 
-    register: dirfecha
-    
-  - name: Ver variable
-    debug: var=dirfecha
+
         
   - name: BACKUP BD SQL Server
     win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" "C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}" /E/H/C/I
