@@ -22,20 +22,25 @@
       script: |
         Get-Volume -DriveLetter C | Select-Object SizeRemaining > C:\Users\Administrador\Desktop\memoria.txt
     
-  - name: Modificar memoria.txt
+  - name: Quitar título memoria.txt
     ansible.windows.win_powershell:
       script: |
         (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace "SizeRemaining", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
   
-  - name: Modificar memoria.txt
+  - name: Quitar guiones memoria.txt
     ansible.windows.win_powershell:
       script: |
         (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace "-", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
 
-  - name: Modificar memoria.txt
+  - name: Quitar espacios en blanco memoria.txt
     ansible.windows.win_powershell:
       script: |
         (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace " ", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
+        
+  - name: Quitar tabulaciones memoria txt
+    ansible.windows.win_powershell:
+      script: |
+        get-content C:\Users\Administrador\Desktop\memoria.txt -Encoding UTF8 | where {$_ -ne ""} | %{$_} | set-content C:\Users\Administrador\Desktop\memoria.txt
         
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria.txt
