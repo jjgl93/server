@@ -10,17 +10,17 @@
     changed_when: False
     
     
-  - name: Comprobando que el sistema es Server 2019
+  - name: Comprobando valor variable de entorno
     win_command: cmd.exe /c SET BLUENCE_HOME
     register: HDD
 
   - name: Ver variable
     debug: var=HDD
     
-  - name: Comprobar memoria si está en D:\
+  - name: Comprobar memoria si está en C:\
     win_command: cmd.exe /c "fsutil volume diskfree c:"
     register: memory
-    failed_when: "'D:\' not in HDD.stdout"
+    failed_when: "'C:\' not in HDD.stdout"
     changed_when: False
 
   - name: Ver variable
