@@ -16,3 +16,10 @@
 
   - name: Ver variable
     debug: var=HDD
+    
+  - name: Comprobar memoria si está en D:\
+    win_command: cmd.exe /c fsutil volume diskfree D:
+    register: memory
+
+  - name: Ver variable
+    debug: var=memory
