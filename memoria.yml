@@ -20,7 +20,7 @@
   - name: Comprobar memoria si está en C:\
     ansible.windows.win_powershell:
       script: |
-        Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C'" | select-object Freespace | % {$_.FreeSpace=($_.FreeSpace/1GB);$_.Size=($_.Size/1GB);$_}
+        Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'" | select-object Freespace | % {$_.FreeSpace=($_.FreeSpace/1GB);$_}
     register: memory
     failed_when: "'C:\' not in HDD.stdout"
     changed_when: False
