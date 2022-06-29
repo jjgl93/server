@@ -60,4 +60,5 @@
       path: 'C:\Users\Administrador\Desktop\memoria2.txt'
       state: absent
       
-    
+  - name: Ver variable
+    debug: var=memory    
