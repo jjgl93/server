@@ -61,6 +61,8 @@
       
   - name: Convertir salida memory a variable
     debug: var=memory.stdout_lines
-
-  - name: Ver variable
-    debug: var=memory
+    
+  - name: Parar ejecución dependiendo de la memoria
+    win_command: cmd.exe /c ipconfig
+    failed_when: {{ var }} == {{ limite }}
+    changed_when: False
