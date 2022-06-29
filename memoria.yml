@@ -24,6 +24,9 @@
     register: memory
     failed_when: "'C:\' not in HDD.stdout"
     changed_when: False
+    
+  - name: Comparar memoria
+    failed_when: HDD.stdout < 2
 
   - name: Ver variable
     debug: var=memory
