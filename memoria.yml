@@ -47,6 +47,7 @@
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
     register: memory
+    failed_ when: memory == 0
 
   - name: Borrar memoria.txt
     ansible.windows.win_file:
@@ -57,11 +58,6 @@
     ansible.windows.win_file:
       path: 'C:\Users\Administrador\Desktop\memoria2.txt'
       state: absent
-      
-  - name: print result
-    debug:
-      msg: "El equipo tiene menos de 2GB de memoria"
-    failed_ when: memory == 0
       
   - name: Ver variable
     debug: var=memory
