@@ -35,6 +35,7 @@
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria.txt
     register: memory
+    failed_when: memory.stdout > 2048
 
   - name: Ver variable
     debug: var=memory
