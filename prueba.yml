@@ -151,16 +151,22 @@
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\fecha.txt
     register: fecha
     
-  - name: Ver variable
-    debug: var=fecha
-    
   - name: Crear Directorio
     ansible.windows.win_file:
       path: 'C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}'
       state: directory
+    register: dirfecha
+    
+  - name: Ver variable
+    debug: var=dirfecha
         
   - name: BACKUP BD SQL Server
     win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" C:\Users\Administrador\Desktop\backup-BD /E/H/C/I
+    
+  - name: Borrar fecha.txt
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\fecha.txt'
+      state: absent
 
   - name: Vaciar papelera de reciclaje
     win_command: cmd.exe /c rd /s /q C:\$Recycle.bin
