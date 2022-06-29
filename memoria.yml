@@ -18,7 +18,7 @@
     debug: var=HDD
     
   - name: Comprobar memoria si está en D:\
-    win_command: cmd.exe /c "fsutil volume diskfree d:"
+    win_command: cmd.exe /c "fsutil volume diskfree c:"
     register: memory
 
   - name: Ver variable
