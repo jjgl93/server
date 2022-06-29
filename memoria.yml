@@ -61,5 +61,8 @@
       path: 'C:\Users\Administrador\Desktop\memoria2.txt'
       state: absent
       
+  - debug:
+    var: json_query('[?memory.stdout_lines < {{ limite }}`].key')
+      
   - name: Ver variable
     debug: var=memory
