@@ -157,6 +157,10 @@
       state: directory
     register: dirfecha
     
+  - name: Buscar directorio BD
+    win_command: cmd.exe /c dir "C:\Users\Administrador\Desktop\backup*" 
+    register: dirfecha
+    
   - name: Ver variable
     debug: var=dirfecha
         
