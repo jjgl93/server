@@ -40,11 +40,21 @@
   - name: Quitar tabulaciones memoria txt
     ansible.windows.win_powershell:
       script: |
-        get-content C:\Users\Administrador\Desktop\memoria.txt -Encoding UTF8 | where {$_ -ne ""} | %{$_} | set-content C:\Users\Administrador\Desktop\memoria.txt
+        get-content C:\Users\Administrador\Desktop\memoria.txt -Encoding UTF8 | where {$_ -ne ""} | %{$_} | set-content C:\Users\Administrador\Desktop\memoria2.txt
         
   - name: Guardar contenido en variable
-    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria.txt
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
     register: memory
 
+  - name: Borrar memoria.txt
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\memoria.txt'
+      state: absent
+      
+  - name: Borrar memoria2.txt
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\memoria2.txt'
+      state: absent
+      
   - name: Ver variable
     debug: var=memory
