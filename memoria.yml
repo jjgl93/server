@@ -20,9 +20,21 @@
   - name: Guardar memoria en txt
     ansible.windows.win_powershell:
       script: |
-        Get-WmiObject -Class Win32_LogicalDisk | Select-Object -Property  @{Label="a"; expression={($_.FreeSpace/1GB).ToString('F2')}}|ft > C:\Users\Administrador\Desktop\memoria.txt
+        Get-Volume -DriveLetter C | Select-Object SizeRemaining > C:\Users\Administrador\Desktop\memoria.txt
     
-
+  - name: Modificar memoria.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content memoria.txt) | foreach-object {$_ -replace "SizeRemaining", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
+  
+  - name: Modificar memoria.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content memoria.txt) | foreach-object {$_ -replace "-", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
+    
+  - name: Guardar contenido en variable
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria.txt
+    register: memory
 
   - name: Ver variable
     debug: var=memory
