@@ -47,6 +47,7 @@
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
     register: memory
+    failed_when: memory.stdout_lines < {{ limite }}
 
   - name: Borrar memoria.txt
     ansible.windows.win_file:
@@ -57,10 +58,6 @@
     ansible.windows.win_file:
       path: 'C:\Users\Administrador\Desktop\memoria2.txt'
       state: absent
-      
-  - name: Parar ejecución si memoria menor de 2 GB
-    win_command: cmd.exe /c SET BLUENCE_HOME
-    failed_when: memory.stdout_lines < {{ limite }}
       
   - name: Ver variable
     debug: var=memory
