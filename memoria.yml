@@ -17,13 +17,24 @@
   - name: Ver variable
     debug: var=HDD
     
-  - name: Comprobar memoria si está en C:\
+  - name: Guardar memoria en txt
     ansible.windows.win_powershell:
       script: |
-        Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'" | select-object Freespace | % {$_.FreeSpace=($_.FreeSpace/1GB);$_}
+        Get-WmiObject -Class Win32_LogicalDisk | Select-Object -Property  @{Label="a"; expression={($_.FreeSpace/1GB).ToString('F2')}}|ft > C:\Users\Administrador\Desktop\memoria.txt
+    
+  - name: Modificar memoria.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content memoria.txt) | foreach-object {$_ -replace "a", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
+  
+  - name: Modificar memoria.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content memoria.txt) | foreach-object {$_ -replace "-", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
+    
+  - name: Guardar contenido en variable
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria.txt
     register: memory
-    failed_when: "'C:\' not in HDD.stdout"
-    changed_when: False
 
   - name: Ver variable
     debug: var=memory
