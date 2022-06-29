@@ -47,6 +47,7 @@
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
     register: memory
+    failed_when: memory.stdout_lines | int > {{ limite }}
     changed_when: False
 
   - name: Borrar memoria.txt
@@ -59,7 +60,4 @@
       path: 'C:\Users\Administrador\Desktop\memoria2.txt'
       state: absent
       
-  - debug:
-      msg: "Sin espacio"
-    when: memory.stdout | int > {{ limite }}
     
