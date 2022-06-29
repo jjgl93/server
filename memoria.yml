@@ -61,8 +61,7 @@
   - name: print result
     debug:
       msg: "El equipo tiene menos de 2GB de memoria"
-    when:
-        - memory > 1
+    failed_ when: memory == 0
       
   - name: Ver variable
     debug: var=memory
