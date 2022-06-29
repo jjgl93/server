@@ -47,7 +47,7 @@
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
     register: memory
-    failed_ when: memory == 0
+    failed_ when: memory.stdout_lines == 0
 
   - name: Borrar memoria.txt
     ansible.windows.win_file:
