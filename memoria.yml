@@ -1,1 +1,17 @@
-
+- name: Playbook de prueba  
+  hosts: win19
+  
+  tasks:
+        
+  - name: Comprobando que el sistema es Server 2019
+    win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
+    register: version
+    failed_when: "'Windows Server 2019' not in version.stdout"
+    changed_when: False
+    
+    
+  - name: Comprobando que el sistema es Server 2019
+    win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
+    register: version
+    failed_when: "'Windows Server 2019' not in version.stdout"
+    changed_when: False
