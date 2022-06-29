@@ -1,7 +1,7 @@
 - name: Playbook de prueba  
   hosts: win19
   vars:
-    limite: 2048
+    limite: 268435456
   
   tasks:
         
