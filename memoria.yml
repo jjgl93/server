@@ -61,5 +61,5 @@
       
   - debug:
       msg: "Sin espacio"
-    when: memory.stdout | int < 80
+    when: memory.stdout | int > {{ limite }}
     
