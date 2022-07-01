@@ -47,7 +47,7 @@
   - name: Guardar contenido en variable
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
     register: memory
-    failed_when: '{{limite}} | int' > 'memory.stdout_lines | int'
+    failed_when: "{{limite}} | int" > "memory.stdout_lines | int"
     changed_when: False
 
   - name: Borrar memoria.txt
