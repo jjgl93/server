@@ -60,4 +60,4 @@
       state: absent
       
   - name: Ver variable
-    debug: var=memory.stdout_lines 
+    debug: var=memory.stdout_lines | int
