@@ -29,3 +29,6 @@
       
   - name: Ver variable
     debug: var=memory
+
+  - name: Ver variable
+    debug: var=memory.output
