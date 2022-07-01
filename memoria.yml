@@ -23,7 +23,7 @@
   - name: Guardar memoria variable memory
     ansible.windows.win_powershell:
       script: |
-        ((get-volume -DriveLetter {{ HDD }}).SizeRemaining)
+        ((get-volume -DriveLetter {{ HDD.output }}).SizeRemaining)
     register: memory
 
       
