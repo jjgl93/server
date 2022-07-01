@@ -25,6 +25,7 @@
       script: |
         ((get-volume -DriveLetter C).SizeRemaining)
     register: memory
+    failed_when: memory.output < 268435456
 
       
   - name: Ver variable
