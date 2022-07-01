@@ -16,7 +16,7 @@
       script: | 
         ((get-volume -DriveLetter $env:BLUENCE_HOME.substring(0,1)).SizeRemaining)
     register: BLUENCE_HOME_SIZE
-    failed_when: BLUENCE_HOME_SIZE.output[0] < {{ limit }}
+    failed_when: BLUENCE_HOME_SIZE.output[0] > {{ limit }}
 
   - name : Return my_folder
     debug: var="BLUENCE_HOME_SIZE.output[0]"
