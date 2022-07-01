@@ -11,53 +11,21 @@
     failed_when: "'Windows Server 2019' not in version.stdout"
     changed_when: False
     
-    
   - name: Comprobando valor variable de entorno
-    win_command: cmd.exe /c SET BLUENCE_HOME
+    ansible.windows.win_powershell:
+      script: |
+        $env:BLUENCE_HOME.substring(0,1)
     register: HDD
 
   - name: Ver variable
     debug: var=HDD
     
-  - name: Guardar memoria en txt
+  - name: Guardar memoria variable memory
     ansible.windows.win_powershell:
       script: |
-        Get-Volume -DriveLetter C | Select-Object SizeRemaining > C:\Users\Administrador\Desktop\memoria.txt
-    
-  - name: Quitar título memoria.txt
-    ansible.windows.win_powershell:
-      script: |
-        (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace "SizeRemaining", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
-  
-  - name: Quitar guiones memoria.txt
-    ansible.windows.win_powershell:
-      script: |
-        (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace "-", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
-
-  - name: Quitar espacios en blanco memoria.txt
-    ansible.windows.win_powershell:
-      script: |
-        (get-content C:\Users\Administrador\Desktop\memoria.txt) | foreach-object {$_ -replace " ", ""} | set-content C:\Users\Administrador\Desktop\memoria.txt
-        
-  - name: Quitar tabulaciones memoria txt
-    ansible.windows.win_powershell:
-      script: |
-        get-content C:\Users\Administrador\Desktop\memoria.txt -Encoding UTF8 | where {$_ -ne ""} | %{$_} | set-content C:\Users\Administrador\Desktop\memoria2.txt
-        
-  - name: Guardar contenido en variable
-    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\memoria2.txt
+        ((get-volume -DriveLetter {{ HDD }}).SizeRemaining)
     register: memory
     failed_when: memory.stdout_lines | int > 268435456
-
-  - name: Borrar memoria.txt
-    ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Desktop\memoria.txt'
-      state: absent
-      
-  - name: Borrar memoria2.txt
-    ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Desktop\memoria2.txt'
-      state: absent
       
   - name: Ver variable
     debug: var="memory.stdout_lines | int"
