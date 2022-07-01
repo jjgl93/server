@@ -13,7 +13,7 @@
     
     
   - name: Comprobando valor variable de entorno
-    win_command: cmd.exe /c SET BLUENCE_DRIVE
+    win_command: cmd.exe /c SET BLUENCE_HOME
     register: HDD
 
   - name: Ver variable
