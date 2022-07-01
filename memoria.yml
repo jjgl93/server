@@ -25,7 +25,7 @@
       script: |
         ((get-volume -DriveLetter {{ HDD }}).SizeRemaining)
     register: memory
-    failed_when: memory.stdout_lines | int > 268435456
+    failed_when: memory > 268435456
       
   - name: Ver variable
     debug: var="memory.stdout_lines | int"
