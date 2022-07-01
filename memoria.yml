@@ -28,4 +28,4 @@
     failed_when: memory > 268435456
       
   - name: Ver variable
-    debug: var="memory.stdout_lines | int"
+    debug: var=memory
