@@ -8,7 +8,7 @@
   - name: Comprobando
     delegate_to: localhost
     stat:
-      path: "/home/jjgutierrez/Desktop/bitbucket\ colombia/glgt-ap1289103-dev-lan-etl3-repo-container.zip"
+      path: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
     register: artifact
 
 
