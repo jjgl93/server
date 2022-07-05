@@ -5,8 +5,9 @@
   
   tasks:
         
-  - name: Comprobando que el sistema es Server 2019
-    win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
-    register: version
-    failed_when: "'Windows Server 2019' not in version.stdout"
-    changed_when: False
+  - name: Comprobando
+    delegate_to: localhost
+    stat:
+      path: "/home/jjgutierrez/Desktop/bitbucket\ colombia/glgt-ap1289103-dev-lan-etl3-repo-container.zip"
+    register: artifact
+    failed_when: "'No existe' in artifact.stdout"
