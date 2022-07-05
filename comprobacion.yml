@@ -10,4 +10,7 @@
     stat:
       path: "/home/jjgutierrez/Desktop/bitbucket\ colombia/glgt-ap1289103-dev-lan-etl3-repo-container.zip"
     register: artifact
-    failed_when: "'No existe' in artifact.stdout"
+
+
+  - name : Return my_folder
+    debug: var=artifact
