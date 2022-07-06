@@ -5,6 +5,13 @@
   
   tasks:
  
+ 
+  - name: Comprobar si existe datosRed
+    stat:
+      path: "C:\\Users\\Administrador\\Desktop"
+    register: existe
+    failed_when: not existe.stat.exists
+    
   - name: Descargar archivo en localhost
     delegate_to: localhost
     get_url:
