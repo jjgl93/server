@@ -10,6 +10,7 @@
     get_url:
       url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
       dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
+    get_checksum: yes
     register: descarga
  
   - name: Comprobar que se ha descargado el archivo en localhost
