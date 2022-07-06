@@ -31,7 +31,7 @@
       src: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
       dest: "C:\\Users\\Administrador\\Desktop\\httpd-2.2.25-win32-x86-no_ssl.msi"
     register: copyhost
-
+    failed_when: '"compdesc.stat.checksum != copyhost.checksum"'
 
 
 
