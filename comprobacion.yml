@@ -4,7 +4,13 @@
     limit: 268435456
   
   tasks:
-        
+ 
+  - name: Download last Full package from GDrive (Factory)
+    delegate_to: localhost
+    get_url:
+      url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+      dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
+ 
   - name: Comprobando
     delegate_to: localhost
     stat:
