@@ -47,4 +47,4 @@
     debug: var=existe
     
   - name : Return my_folder
-    debug: var=copyhost.checksum[0]
+    debug: var=copyhost.checksum
