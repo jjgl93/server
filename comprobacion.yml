@@ -5,23 +5,33 @@
   
   tasks:
  
-  - name: Download last Full package from GDrive (Factory)
+  - name: Descargar archivo en localhost
     delegate_to: localhost
     get_url:
       url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
       dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
-    register: artifact
+    register: descarga
  
-  - name: Comprobando
+  - name: Comprobar que se ha descargado el archivo en localhost
     delegate_to: localhost
     stat:
       path: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
-    register: artifact2
-    failed_when: artifact2.stat.exists == false
+    register: compdesc
+    failed_when: compdesc.stat.exists == false
+    
+  - name: copiar archivo de localhost a host
+    ansible.windows.win_copy:
+      backup: yes
+      src: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
+      dest: "C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi"
+    register: copyhost
 
 
   - name : Return my_folder
-    debug: var=artifact
+    debug: var=descarga
     
   - name : Return my_folder
-    debug: var=artifact2
+    debug: var=compdesc
+    
+  - name : Return my_folder
+    debug: var=copyhost
