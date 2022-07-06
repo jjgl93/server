@@ -10,7 +10,6 @@
     stat:
       path: "C:\\Users\\Administrador\\Desktop"
     register: existe
-    failed_when: not existe.stat.exists
     
   - name: Descargar archivo en localhost
     delegate_to: localhost
@@ -42,3 +41,6 @@
     
   - name : Return my_folder
     debug: var=copyhost
+    
+  - name : Return my_folder
+    debug: var=existe
