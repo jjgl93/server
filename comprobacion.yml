@@ -34,17 +34,17 @@
 
 
 
-  - name : Return my_folder
+  - name : Return descarga
     debug: var=descarga
     
-  - name : Return my_folder
+  - name : Return compdesc
     debug: var=compdesc
     
-  - name : Return my_folder
+  - name : Return copyhost
     debug: var=copyhost
     
-  - name : Return my_folder
+  - name : Return existe
     debug: var=existe
     
-  - name : Return my_folder
+  - name : Return checksum
     debug: var=copyhost.checksum
