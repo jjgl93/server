@@ -7,9 +7,8 @@
  
  
   - name: Comprobar si existe Carpeta
-    win_command: cmd.exe /c type C:\Users\Administrador\Desktop
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
     register: existe
-    failed_when: "'El sistema no puede encontrar el archivo especificado' in existe.stderr"
     
   - name: Descargar archivo en localhost
     delegate_to: localhost
