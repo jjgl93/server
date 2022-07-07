@@ -7,6 +7,7 @@
     get_url:
       url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
       dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
+    register: sinmd5
       
   - name: Descargar archivo en localhost
     delegate_to: localhost
@@ -33,6 +34,9 @@
   - name: Ver variable
     debug: var=md5
 
+  - name: Ver variable
+    debug: var=sinmd5
+    
   - name: Ver variable
     debug: var=compdesc
     
