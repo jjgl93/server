@@ -9,6 +9,7 @@
   - name: Comprobar si existe Carpeta
     win_command: cmd.exe /c type C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
     register: existe
+    ignore_errors: yes
     
   - name: Descargar archivo en localhost
     delegate_to: localhost
