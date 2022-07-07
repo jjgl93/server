@@ -1,7 +1,9 @@
 - name: Playbook de prueba  
   hosts: win19
   vars:
-    limit: 268435456
+    geoip_db_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+    geoip_db_md5sum_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi.md5"
+    geoip_db_md5sum: "md5: {{ lookup('url', geoip_db_md5sum_url) }}"
   
   tasks:
     
@@ -10,9 +12,8 @@
     get_url:
       url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
       dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
-      checksum_algorithm: sha1sum
-      get_checksum: yes
-    register: sha
+      checksum: "{{ geoip_db_md5sum }}"
+
  
   - name: Comprobar que se ha descargado el archivo en localhost
     delegate_to: localhost
@@ -46,4 +47,4 @@
     debug: var=BLUENCE_HOME_SIZE.output[0]
 
   - name: Ver variable
-    debug: var=sha
+    debug: var=checksum
