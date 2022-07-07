@@ -14,7 +14,7 @@
     stat:
       path: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
     register: compdesc
-    failed_when: download.checksum_src == compdesc.stat.checksum
+    failed_when: download.checksum_src != compdesc.stat.checksum
     
   - name: copiar archivo de localhost a host
     ansible.windows.win_copy:
