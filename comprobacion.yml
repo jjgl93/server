@@ -2,8 +2,8 @@
   hosts: win19
   vars:
     geoip_dir: "/tmp/geoip"
-    geoip_db_url: "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
-    geoip_db_md5sum_url: "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz.md5"
+    geoip_db_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+    geoip_db_md5sum_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi.md5"
     geoip_db_compressed_file_name: "{{ geoip_db_url | basename }}"
     geoip_db_md5sum: "md5: {{ lookup('url', geoip_db_md5sum_url) }}"
   gather_facts: false
