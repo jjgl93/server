@@ -32,3 +32,9 @@
     
   - name: Ver variable
     debug: var=md5
+
+  - name: Ver variable
+    debug: var=compdesc
+    
+  - name: Ver variable
+    debug: var=copyhost
