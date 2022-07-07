@@ -47,12 +47,14 @@
     debug: var=BLUENCE_HOME_SIZE.output[0]
 
   - name: Create geoip directory if it doesn't exist
+    delegate_to: localhost
     file:
       path: "{{ geoip_dir }}"
       state: directory
       mode: 0700
 
   - name: "Downloading the latest GeoIP and comparing it to checksum {{ geoip_db_md5sum }}"
+    delegate_to: localhost
     get_url:
       url: "{{ geoip_db_url }}"
       dest: "{{ geoip_dir }}/{{ geoip_db_compressed_file_name }}"
