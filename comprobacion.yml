@@ -1,12 +1,5 @@
 - name: Playbook de prueba  
   hosts: win19
-  vars:
-    geoip_dir: "/tmp/geoip"
-    geoip_db_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
-    geoip_db_md5sum_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi.md5"
-    geoip_db_compressed_file_name: "{{ geoip_db_url | basename }}"
-    geoip_db_md5sum: "md5: {{ lookup('url', geoip_db_md5sum_url) }}"
-  gather_facts: false
   tasks:
     
   - name: Descargar archivo en localhost
@@ -14,6 +7,12 @@
     get_url:
       url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
       dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
+      
+  - name: Descargar archivo en localhost
+    delegate_to: localhost
+    get_url:
+      url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi.md5"
+    register: md5
  
   - name: Comprobar que se ha descargado el archivo en localhost
     delegate_to: localhost
@@ -29,34 +28,6 @@
       dest: "C:\\Users\\Administrador\\Desktop\\httpd-2.2.25-win32-x86-no_ssl.msi"
     register: copyhost
     failed_when: compdesc.stat.checksum != copyhost.checksum
-
-  - name : Get Bluence home drive size
-    ansible.windows.win_powershell:
-      script: | 
-        ((get-volume -DriveLetter C).SizeRemaining)
-    register: BLUENCE_HOME_SIZE
-    failed_when: BLUENCE_HOME_SIZE.output[0] < 268435456
     
   - name: Ver variable
-    debug: var=BLUENCE_HOME_SIZE
-    
-  - name: Ver variable
-    debug: var=BLUENCE_HOME_SIZE.output
-    
-  - name: Ver variable
-    debug: var=BLUENCE_HOME_SIZE.output[0]
-
-  - name: Create geoip directory if it doesn't exist
-    delegate_to: localhost
-    file:
-      path: "{{ geoip_dir }}"
-      state: directory
-      mode: 0700
-
-  - name: "Downloading the latest GeoIP and comparing it to checksum {{ geoip_db_md5sum }}"
-    delegate_to: localhost
-    get_url:
-      url: "{{ geoip_db_url }}"
-      dest: "{{ geoip_dir }}/{{ geoip_db_compressed_file_name }}"
-      mode: 0600
-      checksum: "{{ geoip_db_md5sum }}"
+    debug: var=md5
