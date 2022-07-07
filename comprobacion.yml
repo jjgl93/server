@@ -3,7 +3,7 @@
   vars:
     geoip_db_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
     geoip_db_md5sum_url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi.md5"
-    geoip_db_md5sum: "md5: {{ lookup('url', geoip_db_md5sum_url) }}"
+    geoip_db_md5sum: "md5: {{ lookup('https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi', https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi.md5) }}"
   
   tasks:
     
