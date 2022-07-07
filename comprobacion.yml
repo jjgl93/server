@@ -31,7 +31,7 @@
       script: | 
         ((get-volume -DriveLetter C).SizeRemaining)
     register: BLUENCE_HOME_SIZE
-    failed_when: BLUENCE_HOME_SIZE.output[0] > 268435456
+    failed_when: BLUENCE_HOME_SIZE.output[0] < 268435456
     
   - name: Ver variable
     debug: var=BLUENCE_HOME_SIZE
