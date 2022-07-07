@@ -32,10 +32,10 @@
     failed_when: compdesc.stat.checksum != copyhost.checksum
     
   - name: Ver variable
-    debug: var=md5
+    debug: var=sinmd5
 
   - name: Ver variable
-    debug: var=sinmd5
+    debug: var=md5
     
   - name: Ver variable
     debug: var=compdesc
