@@ -9,11 +9,6 @@
     register: my_folder
 
   - name: "echo if project's last build directory already existed"
-    debug:
-      msg: "project's last build directory is already existed, skipping"
-    when: my_folder.stat.exists
-
-  - name: "echo if project's last build directory already existed"
     delegate_to: localhost
     file:
       path: /tmp/bluence_server_latest
@@ -27,7 +22,6 @@
       state: directory
       mode: 0755
       recurse: true
-    when: my_folder.stat.exists == false
 
   - name: "Ansible Create tmp MDT directory if not exists"
     delegate_to: localhost
