@@ -19,11 +19,19 @@
         Get-Module -ListAvailable -Name 7Zip4PowerShell
     register: comp
 
-
   - name: Extract packages (Factory) with powershell module
     ansible.windows.win_powershell:
       script: |
         Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.7z' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
 
+  - name: Comprobar si existe 
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\prueba_temp'
+    register: descomp
+    failed_when: descomp.stat.exists == false
+      
   - name: VAR
     debug: var=comp
+
+  - name: VAR
+    debug: var=descomp
