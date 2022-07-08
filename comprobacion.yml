@@ -5,7 +5,7 @@
   - name: Descargar archivo en localhost
     delegate_to: localhost
     get_url:
-      url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+      url: "https://drive.google.com/file/d/16vFKsRVMXu0UyrNniJH60d02Rs2uuII4/view?usp=sharing"
       dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
     register: download
  
