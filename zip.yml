@@ -28,7 +28,7 @@
     ansible.windows.win_file:
       path: 'C:\Users\Administrador\Desktop\prueba_temp'
     register: descomp
-    failed_when: descomp.stat.exists == false
+
       
   - name: VAR
     debug: var=comp
