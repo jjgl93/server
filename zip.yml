@@ -18,9 +18,10 @@
       script: |
         Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.7z' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
 
-  - name: Comprobar si existe 
-    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\prueba_temp
-    register: prueba
+  - name: Ansible check
+    stat:
+      path: 'C:\Users\Administrador\Desktop\prueba_temp'
+    register: my_folder
     
   - name: A
-    debug: var=prueba
+    debug: var=my_folder
