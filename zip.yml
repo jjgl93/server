@@ -21,5 +21,6 @@
   - name: Comprobar si existe 
     win_command: cmd.exe /c type 'C:\Users\Administrador\Desktop\prueba_temp'
     register: prueba
-    failed_when: "'no' in prueba.stderr"
     
+  - name: A
+    debug: var=prueba
