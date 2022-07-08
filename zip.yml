@@ -2,15 +2,18 @@
   hosts: win19
   tasks:
     
-  - name: Ansible check project tmp directory
-    delegate_to: localhost
-    stat:
-      path: /tmp/bluence_server_latest
-    register: my_folder
+    
+  - name: Host check PS Module PSCX
+    ansible.windows.win_powershell:
+      script: |
+        if (Get-Module -ListAvailable -Name PSCX) { Write-Host "Module PSCX exists, continue.." } else { Install-Module -Name Pscx -RequiredVersion 3.3.2 }
 
-  - name: "echo if project's last build directory already existed"
-    delegate_to: localhost
-    file:
-      path: /tmp/bluence_server_latest
-      state: absent
-    when: my_folder.stat.exists
+  - name: Host check PS Module PSCX
+    ansible.windows.win_powershell:
+      script: |
+        if (Get-Module -ListAvailable -Name 7Zip4PowerShell) { Write-Host "Module 7Zip4PowerShell exists, continue.." } else { Install-Module -Name 7Zip4PowerShell -Force }
+
+  - name: Extract packages (Factory) with powershell module
+    ansible.windows.win_powershell:
+      script: |
+        Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.zip' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
