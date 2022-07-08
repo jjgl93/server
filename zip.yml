@@ -2,6 +2,10 @@
   hosts: win19
   tasks:
     
+  - name: Ansible check
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\prueba_temp'
+    register: uno
     
   - name: Host check PS Module PSCX
     ansible.windows.win_powershell:
@@ -25,3 +29,5 @@
     
   - name: A
     debug: var=my_folder
+  - name: A
+    debug: var=uno
