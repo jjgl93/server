@@ -19,7 +19,7 @@
         Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.7z' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
 
   - name: Ansible check
-    stat:
+    ansible.windows.win_file:
       path: 'C:\Users\Administrador\Desktop\prueba_temp'
     register: my_folder
     
