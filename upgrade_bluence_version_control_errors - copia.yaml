@@ -1,4 +1,4 @@
-- hosts: win
+- hosts: win19
   collections:
     - community.windows
 
