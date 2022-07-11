@@ -88,7 +88,24 @@
       ansible.windows.win_powershell:
         script: |
           Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.7z' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
+          
     - name: Ansible check
       ansible.windows.win_file:
         path: 'C:\Users\Administrador\Desktop\prueba_temp'
       register: my_folder
+
+    - name: Delete decompressed
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\prueba_temp'
+        state: absent
+      
+    - name: Delete msi
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi'
+        state: absent    
+
+    - name: Extract packages (Factory) with powershell module
+      ansible.windows.win_powershell:
+        script: |
+          Clear-RecycleBin -Force
+          
