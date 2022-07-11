@@ -97,11 +97,11 @@
     - name: Update Soft link
       ansible.windows.win_powershell:
         script: |
-          New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\prueba_temp\7z2200-x64.exe' -Target 'C:\Users\Administrador\Desktop'  -Force
+          New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\nuevo.lnk' -Target 'C:\Users\Administrador\Desktop\prueba_temp\nuevo\'  -Force
 
     - name: Check Soft link
       ansible.windows.win_file:
-        path: 'C:\Users\Administrador\Desktop\7z2200-x64.exe.lnk'
+        path: 'C:\Users\Administrador\Desktop\nuevo.lnk'
       register: my_folder
       
     - name: Delete decompressed
@@ -116,7 +116,7 @@
         
     - name: Delete soft link
       ansible.windows.win_file:
-        path: 'C:\Users\Administrador\Desktop\7z2200-x64.exe.lnk'
+        path: 'C:\Users\Administrador\Desktop\nuevo.lnk'
         state: absent 
 
     - name: Extract packages (Factory) with powershell module
