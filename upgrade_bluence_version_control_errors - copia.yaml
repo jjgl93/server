@@ -65,13 +65,13 @@
       delegate_to: localhost
       get_url:
         url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
-        dest: "/tmp/bluence_server_latest/MDT/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
+        dest: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
       register: download1
 # Check the Download last Full package from GDrive (Factory) 
     - name: Check the discharge of artifact
       delegate_to: localhost
       stat:
-        path: "/tmp/bluence_server_latest/MDT/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
+        path: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
       register: artifact1
       failed_when: download1.checksum_src != artifact1.stat.checksum
 
