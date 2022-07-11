@@ -64,167 +64,23 @@
     - name: Download last Full package from GDrive (Factory)
       delegate_to: localhost
       get_url:
-        url: "https://drive.google.com/uc?export=download&id={{ GDRIVE_FACTORY_PACKAGE_ID }}&confirm=t"
-        dest: "/tmp/bluence_server_latest/MDT/bluence_server_FACTORY_{{ TC_PROJECT_NAME }}.7z"
+        url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+        dest: "/tmp/bluence_server_latest/MDT/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
       register: download1
 # Check the Download last Full package from GDrive (Factory) 
     - name: Check the discharge of artifact
       delegate_to: localhost
       stat:
-        path: "/tmp/bluence_server_latest/MDT/bluence_server_FACTORY_{{ TC_PROJECT_NAME }}.7z"
+        path: "/tmp/bluence_server_latest/MDT/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
       register: artifact1
       failed_when: download1.checksum_src != artifact1.stat.checksum
-
-# Download artifact from sources
-    - name: Download last pinned build from TeamCity (INTEGRATION)
-      delegate_to: localhost
-      get_url:
-        url: "http://teamcity.isotrol.net:8111/repository/download/{{ TC_DEPLOY_ID }}/.{{ TC_ARTIFACT }}/bluence_server_{{ TC_PROJECT_NAME }}.7z?guest=1"
-        dest: "/tmp/bluence_server_latest/LastPinned/bluence_server_INTEGRATION_{{ TC_PROJECT_NAME }}.7z"
-      register: download2
-# Check the Download last pinned build from TeamCity (INTEGRATION)
-    - name: Check the discharge of artifact
-      delegate_to: localhost
-      stat:
-        path: "/tmp/bluence_server_latest/LastPinned/bluence_server_INTEGRATION_{{ TC_PROJECT_NAME }}.7z"
-      register: artifact2
-      failed_when: download2.checksum_src != artifact2.stat.checksum
-
-# Download artifact from sources
-    - name: Download last pinned build from TeamCity (AM_COLLECTOR)
-      delegate_to: localhost
-      get_url:
-        url: "http://teamcity.isotrol.net:8111/repository/download/{{ TC_COLLECTORS_DEPLOY_ID }}/.{{ TC_ARTIFACT }}/bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}.7z?guest=1"
-        dest: "/tmp/bluence_server_latest/LastPinned/bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}.7z"
-      register: download3
-# Check the Download last pinned build from TeamCity (AM_COLLECTOR)
-    - name: Check the discharge of artifact
-      delegate_to: localhost
-      stat:
-        path: "/tmp/bluence_server_latest/LastPinned/bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}.7z"
-      register: artifact3
-      failed_when: download3.checksum_src != artifact3.stat.checksum
 
 # Copy artifact from tmp to host (and check)
     - name: Copy File (Factory)
       ansible.windows.win_copy:
         backup: yes
-        src: "/tmp/bluence_server_latest/MDT/bluence_server_FACTORY_{{ TC_PROJECT_NAME }}.7z"
-        dest: "{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_FACTORY_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z"
+        src: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
+        dest: "C:\\Users\\Administrador\\Desktop\\httpd-2.2.25-win32-x86-no_ssl.msi"
       register: checksum1
       failed_when: artifact1.stat.checksum != checksum1.checksum
       
-# Copy artifact from tmp to host (and check)
-    - name: Copy File (Integration)
-      ansible.windows.win_copy:
-        backup: yes
-        src: "/tmp/bluence_server_latest/LastPinned/bluence_server_INTEGRATION_{{ TC_PROJECT_NAME }}.7z"
-        dest: "{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_INTEGRATION_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z"
-      register: checksum2
-      failed_when: artifact2.stat.checksum != checksum2.checksum
-
-# Copy artifact from tmp to host (and check)
-    - name: Copy File (Collectors)
-      ansible.windows.win_copy:
-        backup: yes
-        src: "/tmp/bluence_server_latest/LastPinned/bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}.7z"
-        dest: "{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z"
-      register: checksum3
-      failed_when: artifact3.stat.checksum != checksum3.checksum
-
-# Extract packages on host
-    - name: Extract packages (Factory) with powershell module
-      ansible.windows.win_powershell:
-        script: |
-          Expand-7Zip -ArchiveFileName '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_FACTORY_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z' -TargetPath '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp'
-# Check that it has been decompressed
-    - name: Ansible check
-      ansible.windows.win_file:
-        path: '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp'
-      register: decompr1
-
-# Extract packages on host
-    - name: Extract packages (Integration) with powershell module
-      ansible.windows.win_powershell:
-        script: |
-          Expand-7Zip -ArchiveFileName '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_INTEGRATION_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z' -TargetPath '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp'
-# Check that it has been decompressed
-    - name: Ansible check
-      ansible.windows.win_file:
-        path: '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp'
-      register: decompr2
-
-# Extract packages on host
-    - name: Extract packages (Collectors) with powershell module
-      ansible.windows.win_powershell:
-        script: |
-          Expand-7Zip -ArchiveFileName '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z' -TargetPath '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp'
-# Check that it has been decompressed
-    - name: Ansible check
-      ansible.windows.win_file:
-        path: '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp'
-      register: decompr3
-
-# Move package to final folder and clean packages
-    - name: Move packages to final folder with powershell module
-      ansible.windows.win_powershell:
-        script: |
-          move '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp\\bluence_server' '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}'
-          rm '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}_tmp' -Force
-          rm '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_FACTORY_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z'
-          rm '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_INTEGRATION_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z'
-          rm '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_AM_COLLECTOR_{{ TC_PROJECT_NAME }}_{{ BLUENCE_TARGET }}.7z'
-
-    - name: Stop all Bluence services
-      ansible.windows.win_powershell:
-        script: |
-          get-service -name Bluence* -Exclude *HMI* | Stop-Service -Force
-          $ServicePID = (get-wmiobject win32_service | where { $_.name -eq 'Bluence-SCADA-HMI'}).processID
-          Stop-Process $ServicePID -Force
-          $ServicePID = (get-wmiobject win32_service | where { $_.name -eq 'Bluence-AM-HMI'}).processID
-          Stop-Process $ServicePID -Force
-
-# Update soft link bluence_server
-    - name: Remove soft link with powershell module (lnk file)
-      ansible.windows.win_powershell:
-        script: |
-          rm '{{ ansible_env.BLUENCE_HOME }}.lnk'
-
-    - name: Update soft link with powershell module
-      ansible.windows.win_powershell:
-        script: |
-          New-Item -ItemType SymbolicLink -Path '{{ ansible_env.BLUENCE_HOME }}' -Target '{{ ansible_env.BLUENCE_HOME }}\\..\\bluence_server_{{ BLUENCE_TARGET }}'  -Force
-# Check update soft link
-    - name: Check update soft link
-      win_command: cmd.exe /c type "{{ ansible_env.BLUENCE_HOME }}\bluence_server_{{ BLUENCE_TARGET }}" 
-      register: link
-      failed_when: "'El sistema no puede encontrar el archivo especificado' in link.stderr"      
-
-# Create Databases Backup (Relational / Multidimensional)
-    - name: Backup BLUENCE Relational Databases
-      ansible.windows.win_powershell:
-        script: |
-           Invoke-Sqlcmd -ServerInstance {{ DB_SERVER }} -Database msdb -Query "exec sp_start_job @job_name = 'AWXUpgrades.COPY ONLY Backup All Databases'"
-
-    - name: Backup BLUENCE Olap Databases
-      ansible.windows.win_powershell:
-        script: |
-           Invoke-Sqlcmd -ServerInstance {{ DB_SERVER }} -Database msdb -Query "exec sp_start_job @job_name = 'AWXUpgrades.OLAP Backup All Databases'"
-
-# Execute3.bat
-# Upgrade DB to new Bluence version
-    - name: Upgrade SQL Server Relational database
-      ansible.windows.win_powershell:
-        script: |
-          "{{ ansible_env.BLUENCE_HOME }}\\Utils\\INITIALDB\\UP\\Util\\execute3.bat {{ BLUENCE_TARGET }} BLUENCE {{ DB_SERVER }}"
-
-# Start services Bluence
-    - name: Start all Bluence services
-      ansible.windows.win_powershell:
-        script: |
-          get-service -name Bluence*Engine*Core* | Start-Service
-          get-service -name Bluence*Engine*Business* | Start-Service
-          Get-Service -Name Bluence* -Exclude *HMI* | where{$_.StartType -eq "Automatic"} | Start-Service
-          get-service -name Bluence*HMI* | Start-Service
-
-#    -name: Restore Backup BLUENCE Databases
