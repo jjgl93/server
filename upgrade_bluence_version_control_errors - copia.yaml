@@ -107,7 +107,7 @@
         script: |
           cd {{ uta }}; (Get-ChildItem | ? Target).Target
       register: nlink
-      failed_when: "'{{ ruta }}' not in nlink.output"
+      failed_when: "'ruta|string' not in nlink.output"
       
     - name: Delete decompressed
       ansible.windows.win_file:
