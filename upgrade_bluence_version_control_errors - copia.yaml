@@ -2,7 +2,7 @@
   collections:
     - community.windows
   vars:
-    ruta: C:\Users\Administrador\Desktop\prueba_temp\nuevo\
+    ruta: C:\\Users\\Administrador\\Desktop\\prueba_temp\\nuevo\\
 
   tasks:
 
