@@ -129,8 +129,9 @@
       ansible.windows.win_powershell:
         script: |
           cd C:\Users\Administrador\Desktop
-          Get-ChildItem | ? Target | Select-Object FullName, Target
+          Get-ChildItem | ? Target | Select-Object Target
       register: nlink
+      failed_when: "'C:\Users\Administrador\Desktop\prueba_temp\nuevo' not in nlink.output"
 
     - name: Ver variable
       debug: var=nlink
