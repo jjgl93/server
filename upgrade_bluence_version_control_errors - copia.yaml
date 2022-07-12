@@ -136,13 +136,13 @@
         script: |
           cd C:\Users\Administrador\Desktop; Get-ChildItem | ? Target | Select-Object Target
       register: nlink
-      failed_when: "nlink2 not in nlink.output.Target"
+#      failed_when: "nlink2 not in nlink.output.Target"
 
 
     - name: check soft link
       debug: var=nlink
       
     - name: check soft link
-      debug: var=version
+      debug: var=artifact1
       
       
