@@ -109,20 +109,20 @@
       register: nlink
       failed_when: "'{{ ruta }}' not in nlink.output"
       
-    - name: Delete decompressed
-      ansible.windows.win_file:
-        path: 'C:\Users\Administrador\Desktop\prueba_temp'
-        state: absent
+#    - name: Delete decompressed
+#      ansible.windows.win_file:
+#        path: 'C:\Users\Administrador\Desktop\prueba_temp'
+#        state: absent
       
     - name: Delete msi
       ansible.windows.win_file:
         path: 'C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi'
         state: absent  
         
-    - name: Delete soft link
-      ansible.windows.win_file:
-        path: 'C:\Users\Administrador\Desktop\nuevo.lnk'
-        state: absent 
+#    - name: Delete soft link
+#      ansible.windows.win_file:
+#        path: 'C:\Users\Administrador\Desktop\nuevo.lnk'
+#        state: absent 
 
     - name: Empty Recycle Bin
       ansible.windows.win_powershell:
