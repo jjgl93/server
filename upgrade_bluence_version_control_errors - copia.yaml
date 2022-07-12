@@ -126,13 +126,17 @@
 #        script: |
 #          Clear-RecycleBin -Force
 #
+    - name: check ruta soft link
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\nuevo'
+      register: nlink2    
       
     - name: check soft link
       ansible.windows.win_powershell:
         script: |
           cd C:\Users\Administrador\Desktop; Get-ChildItem | ? Target | Select-Object Target
       register: nlink
-#      failed_when: "'{{ ruta }}' not in nlink.output[0]"
+      failed_when: "nlink2 not in nlink.output"
 
 
     - name: check soft link
