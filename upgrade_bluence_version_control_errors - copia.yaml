@@ -136,7 +136,7 @@
         script: |
           cd C:\Users\Administrador\Desktop; Get-ChildItem | ? Target | Select-Object Target
       register: nlink
-      failed_when: "nlink2 not in nlink.output"
+      failed_when: "nlink2 not in nlink.output[0]"
 
 
     - name: check soft link
