@@ -143,6 +143,6 @@
       debug: var=nlink
       
     - name: check soft link
-      debug: var=artifact1
+      debug: var=BLUENCE_HOME_SIZE
       
       
