@@ -136,7 +136,7 @@
         script: |
           cd C:\Users\Administrador\Desktop; (Get-ChildItem | ? Target).Target
       register: nlink
-      failed_when: "nlink2 not in nlink.output.Target"
+      failed_when: "'{{ ruta }}' not in nlink.output"
 
 
     - name: check soft link
