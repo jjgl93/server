@@ -119,7 +119,7 @@
         path: 'C:\Users\Administrador\Desktop\nuevo.lnk'
         state: absent 
 
-    - name: Extract packages (Factory) with powershell module
+    - name: Empty Recycle Bin
       ansible.windows.win_powershell:
         script: |
           Clear-RecycleBin -Force
