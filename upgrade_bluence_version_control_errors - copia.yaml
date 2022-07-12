@@ -132,7 +132,3 @@
           Get-ChildItem | ? Target | Select-Object Target
       register: nlink
       failed_when: "'C:\Users\Administrador\Desktop\prueba_temp\nuevo' not in nlink.output"
-
-    - name: Ver variable
-      debug: var=nlink
-      
