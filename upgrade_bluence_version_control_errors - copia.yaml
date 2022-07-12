@@ -134,6 +134,6 @@
 
 
     - name: check soft link
-      debug: var=nlink.output_Target
+      debug: var=nlink.output[0]
       
       
