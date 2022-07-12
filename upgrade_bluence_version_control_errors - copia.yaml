@@ -128,7 +128,7 @@
 #
     - name: check ruta soft link
       ansible.windows.win_file:
-        path: 'C:\\Users\\Administrador\\Desktop\\nuevo'
+        path: 'C:\\Users\\Administrador\\Desktop\\nuevo\\'
       register: nlink2    
       
     - name: check soft link
