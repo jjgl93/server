@@ -131,4 +131,9 @@
           cd C:\Users\Administrador\Desktop
           Get-ChildItem | ? Target | Select-Object Target
       register: nlink
-      failed_when: '"C:\Users\Administrador\Desktop\prueba_temp\nuevo" not in nlink.output'
+      failed_when: not "'C:\Users\Administrador\Desktop\prueba_temp\nuevo' in nlink.output"
+
+    - name: check soft link
+      debug: var=nlink
+      
+      
