@@ -114,10 +114,10 @@
 #        path: 'C:\Users\Administrador\Desktop\prueba_temp'
 #        state: absent
       
-    - name: Delete msi
-      ansible.windows.win_file:
-        path: 'C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi'
-        state: absent  
+#    - name: Delete msi
+#      ansible.windows.win_file:
+#        path: 'C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi'
+#        state: absent  
         
 #    - name: Delete soft link
 #      ansible.windows.win_file:
