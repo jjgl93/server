@@ -1,6 +1,8 @@
 - hosts: win19
   collections:
     - community.windows
+  vars:
+    ruta: C:\Users\Administrador\Desktop\nuevo
 
   tasks:
 
@@ -130,7 +132,7 @@
         script: |
           cd C:\Users\Administrador\Desktop; Get-ChildItem | ? Target | Select-Object Target
       register: nlink
-#      failed_when: "'C:\\Users\\Administrador\\Desktop\\nuevo' not in nlink.output[0]"
+#      failed_when: "'{{ ruta }}' not in nlink.output[0]"
 
 
     - name: check soft link
