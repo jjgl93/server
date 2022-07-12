@@ -132,13 +132,13 @@
         script: |
           cd C:\Users\Administrador\Desktop; Get-ChildItem | ? Target | Select-Object Target
       register: nlink
-      failed_when: "'{{ ruta }}' not in nlink.output[0]"
+#      failed_when: "'{{ ruta }}' not in nlink.output[0]"
 
 
     - name: check soft link
       debug: var=nlink
       
     - name: check soft link
-      debug: var=nlink.output[0]
+      debug: var=version
       
       
