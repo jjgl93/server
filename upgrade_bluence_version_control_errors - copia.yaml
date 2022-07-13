@@ -24,8 +24,8 @@
     - name: check bat
       ansible.windows.win_file:
         path: "C:\\Users\\Administrador\\Desktop\\path\\prueba.bat"
-      register: bat
-      failed_when: not bat.stat.exists
+      register: hola
+      failed_when: not hola.stat.exists
       
 # Check the system
     - name: Comprobando que el sistema es Server 2019
