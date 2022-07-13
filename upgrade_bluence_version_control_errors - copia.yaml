@@ -14,11 +14,18 @@
       register: copext2
       
 # Upgrade OLAP to new Bluence version (Factory Version)
-    - name: Upgrade OLAP Server Multidimensional database
+    - name: execute bat
       ansible.windows.win_powershell:
         chdir: "C:\\Users\\Administrador\\Desktop\\path"
         script: |
           cmd.exe /c prueba.bat
+            
+# Upgrade OLAP to new Bluence version (Factory Version)
+    - name: check bat
+      ansible.windows.win_file:
+        path: "C:\\Users\\Administrador\\Desktop\\path\\prueba.bat"
+      register: bat
+      failed_when: not bat.stat.exists
       
 # Check the system
     - name: Comprobando que el sistema es Server 2019
