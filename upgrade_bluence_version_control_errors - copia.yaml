@@ -20,7 +20,7 @@
         script: |
           cmd.exe /c prueba.bat
       register: bat
-      failed_when: bat.failed != false
+      failed_when: bat.error.exist
       
 # Check the system
     - name: Comprobando que el sistema es Server 2019
