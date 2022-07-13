@@ -34,6 +34,7 @@
           ((get-volume -DriveLetter $env:BLUENCE_HOME.substring(0,1)).SizeRemaining)
       register: BLUENCE_HOME_SIZE
       failed_when: BLUENCE_HOME_SIZE.output[0] < 268435456
+      changed_when: False     
 
 # Check Powershell Modules
     - name: Host check PS Module PSCX
