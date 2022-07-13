@@ -143,9 +143,3 @@
         script: |
           Clear-RecycleBin -Force  
       
-    - name: variable
-      debug: var=bat
-      
-    - name: variable
-      debug: var=my_folder.stat
-      
