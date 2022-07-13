@@ -145,4 +145,3 @@
       
     - name: variable
       debug: var=bat
-          Clear-RecycleBin -Force  
