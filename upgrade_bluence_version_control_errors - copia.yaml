@@ -12,6 +12,7 @@
       ansible.windows.win_file:
         path: 'C:\\Users\\Administrador\\Desktop\\path'
       register: copext2
+      changed_when: False
       
 # Upgrade OLAP to new Bluence version (Factory Version)
     - name: execute bat
@@ -34,8 +35,8 @@
           ((get-volume -DriveLetter $env:BLUENCE_HOME.substring(0,1)).SizeRemaining)
       register: BLUENCE_HOME_SIZE
       failed_when: BLUENCE_HOME_SIZE.output[0] < 268435456
-      changed_when: False     
-
+      changed_when: False
+      
 # Check Powershell Modules
     - name: Host check PS Module PSCX
       ansible.windows.win_powershell:
@@ -91,6 +92,7 @@
         path: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
       register: artifact1
       failed_when: download1.checksum_src != artifact1.stat.checksum
+      changed_when: False
 
 # Copy artifact from tmp to host (and check)
     - name: Copy File (Factory)
@@ -122,6 +124,7 @@
           cd {{ uta }}; (Get-ChildItem | ? Target).Target
       register: nlink
       failed_when: "'{{ ruta }}' not in nlink.output"
+      changed_when: False
       
     - name: Delete decompressed
       ansible.windows.win_file:
