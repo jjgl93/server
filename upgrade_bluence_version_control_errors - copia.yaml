@@ -19,8 +19,6 @@
         chdir: "C:\\Users\\Administrador\\Desktop\\path"
         script: |
           cmd.exe /c prueba.bat
-      register: arch
-      failed_when: arch.error is defined
       
 # Check the system
     - name: Comprobando que el sistema es Server 2019
