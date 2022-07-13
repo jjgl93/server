@@ -147,5 +147,5 @@
       debug: var=bat
       
     - name: variable
-      debug: var=my_folder
+      debug: var=my_folder.stat
       
