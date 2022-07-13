@@ -7,6 +7,12 @@
 
   tasks:
 
+# Check Copy EXTENSION Data from previous version
+    - name: Check Copy EXTENSION Data from previous version
+      ansible.windows.win_file:
+        path: 'C:\\Users\\Administrador\\Desktop\\path'
+      register: copext2
+      
 # Check the system
     - name: Comprobando que el sistema es Server 2019
       win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
