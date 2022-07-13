@@ -13,6 +13,14 @@
         path: 'C:\\Users\\Administrador\\Desktop\\path'
       register: copext2
       
+# Upgrade OLAP to new Bluence version (Factory Version)
+    - name: Upgrade OLAP Server Multidimensional database
+      ansible.windows.win_powershell:
+        chdir: "C:\\Users\\Administrador\\Desktop\\path"
+        script: |
+          cmd.exe /c prueba.bat
+      register: bat
+      
 # Check the system
     - name: Comprobando que el sistema es Server 2019
       win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
@@ -135,3 +143,6 @@
         script: |
           Clear-RecycleBin -Force  
       
+    - name: variable
+      debug: var=bat
+          Clear-RecycleBin -Force  
