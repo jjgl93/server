@@ -126,6 +126,11 @@
       failed_when: "'{{ ruta }}' not in nlink.output"
       changed_when: False
       
+    - name: Print datetime before pause
+      run_once: true
+      debug:
+        msg: "{{ lookup('pipe', 'date') }}"
+    
     - name: Pause for 5 minutes to build app cache
       ansible.builtin.pause:
         minutes: 5
