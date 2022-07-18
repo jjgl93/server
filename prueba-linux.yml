@@ -1,7 +1,12 @@
-- hosts: all
+- name: Playbook de prueba  
+  hosts: all
+  vars:
+    archivo1: copy.txt
+    directorio: copy
+    
   tasks:
-  - name: Copy a single file
-    copy:
-      src: /home/copy.txt
-      dest: /home/usuario/Desktop/copy.txt
-      remote_src: yes
+
+  - name: Crear Directorio
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\{{ directorio }}'
+      state: directory
