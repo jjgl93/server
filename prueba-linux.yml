@@ -6,7 +6,7 @@
   - name: Update soft link with powershell module
     ansible.windows.win_powershell:
       script: |
-        New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\link.lnk' -Target 'C:\Users\Administrador\Desktop\Path'  -Force
+        New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\link' -Target 'C:\Users\Administrador\Desktop\Path'  -Force
 
 # Check sof link
 #  - name: check soft link
