@@ -23,3 +23,14 @@
 
   - name: ver variable
     debug: var=nlink
+
+# Check sof link
+  - name: check soft link
+    ansible.windows.win_powershell:
+      script: |
+        cd 'C:\Users\Administrador'; (Get-ChildItem | ? Target).Target
+    register: n2link
+    changed_when: False
+
+  - name: ver variable
+    debug: var=n2link
