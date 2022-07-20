@@ -19,6 +19,7 @@
       script: |
         cd 'C:\Users\Administrador\Desktop'; (Get-ChildItem | ? Target).Target
     register: nlink
+    failed_when: nlink.output is null
     changed_when: False
 
   - name: ver variable
@@ -30,6 +31,7 @@
       script: |
         cd 'C:\Users\Administrador'; (Get-ChildItem | ? Target).Target
     register: n2link
+    failed_when: n2link.output is null
     changed_when: False
 
   - name: ver variable
