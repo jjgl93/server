@@ -3,7 +3,16 @@
     
   tasks:
 
-  - name: Crear Directorio
-    ansible.windows.win_file:
-      path: 'C:\Users\Administrador\Desktop\{{ directorio }}'
-      state: directory
+  - name: Update soft link with powershell module
+    ansible.windows.win_powershell:
+      script: |
+        New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\link' -Target 'C:\Users\Administrador\Desktop\Path'  -Force
+
+# Check sof link
+#  - name: check soft link
+#    ansible.windows.win_powershell:
+#      script: |
+#        cd {{ ansible_env.BLUENCE_HOME }}; (Get-ChildItem | ? Target).Target
+#    register: nlink
+#    failed_when: "'bluence_server_{{ BLUENCE_TARGET }}' not in nlink.output"
+#    changed_when: False
