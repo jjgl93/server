@@ -14,10 +14,12 @@
         New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\link2' -Target 'C:\Users\Administrador\Desktop\Path'  -Force
         
 # Check sof link
-#  - name: check soft link
-#    ansible.windows.win_powershell:
-#      script: |
-#        cd {{ ansible_env.BLUENCE_HOME }}; (Get-ChildItem | ? Target).Target
-#    register: nlink
-#    failed_when: "'bluence_server_{{ BLUENCE_TARGET }}' not in nlink.output"
-#    changed_when: False
+  - name: check soft link
+    ansible.windows.win_powershell:
+      script: |
+        cd 'C:\Users\Administrador\Desktop'; (Get-ChildItem | ? Target).Target
+    register: nlink
+    changed_when: False
+
+  - name: ver variable
+    debug: var=nlink
