@@ -1,0 +1,157 @@
+- hosts: win19
+  collections:
+    - community.windows
+  vars:
+    uta: C:\Users\Administrador\Desktop
+    ruta: C:\\Users\\Administrador\\Desktop\\prueba_temp\\nuevo\\
+
+  tasks:
+
+# Check Copy EXTENSION Data from previous version
+    - name: Check Copy EXTENSION Data from previous version
+      ansible.windows.win_file:
+        path: 'C:\\Users\\Administrador\\Desktop\\path'
+      register: copext2
+      changed_when: False
+      
+# Upgrade OLAP to new Bluence version (Factory Version)
+    - name: execute bat
+      ansible.windows.win_powershell:
+        chdir: "C:\\Users\\Administrador\\Desktop\\path"
+        script: |
+          cmd.exe /c prueba.bat
+      
+# Check the system
+    - name: Comprobando que el sistema es Server 2019
+      win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
+      register: version
+      failed_when: "'Windows Server 2019' not in version.stdout"
+      changed_when: False
+
+# Check the storage    
+    - name : Get Bluence home drive size
+      ansible.windows.win_powershell:
+        script: | 
+          ((get-volume -DriveLetter $env:BLUENCE_HOME.substring(0,1)).SizeRemaining)
+      register: BLUENCE_HOME_SIZE
+      failed_when: BLUENCE_HOME_SIZE.output[0] < 268435456
+      changed_when: False
+      
+# Check Powershell Modules
+    - name: Host check PS Module PSCX
+      ansible.windows.win_powershell:
+        script: |
+          if (Get-Module -ListAvailable -Name PSCX) { Write-Host "Module PSCX exists, continue.." } else { Install-Module -Name Pscx -RequiredVersion 3.3.2 }
+
+    - name: Host check PS Module PSCX
+      ansible.windows.win_powershell:
+        script: |
+          if (Get-Module -ListAvailable -Name 7Zip4PowerShell) { Write-Host "Module 7Zip4PowerShell exists, continue.." } else { Install-Module -Name 7Zip4PowerShell -Force }
+
+# Check temporal folder in localhost container
+    - name: Ansible check project tmp directory
+      delegate_to: localhost
+      stat:
+        path: /tmp/bluence_server_latest
+      register: my_folder
+
+    - name: "echo if project's last build directory already existed"
+      delegate_to: localhost
+      file:
+        path: /tmp/bluence_server_latest
+        state: absent
+      when: my_folder.stat.exists
+
+    - name: "Ansible Create Integration directory if not exists"
+      delegate_to: localhost
+      file:
+        path: /tmp/bluence_server_latest/LastPinned
+        state: directory
+        mode: 0755
+        recurse: true
+
+    - name: "Ansible Create tmp MDT directory if not exists"
+      delegate_to: localhost
+      file:
+        path: /tmp/bluence_server_latest/MDT
+        state: directory
+        mode: 0755
+        recurse: true
+
+# Download artifact from sources
+    - name: Download last Full package from GDrive (Factory)
+      delegate_to: localhost
+      get_url:
+        url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+        dest: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
+      register: download1
+# Check the Download last Full package from GDrive (Factory) 
+    - name: Check the discharge of artifact
+      delegate_to: localhost
+      stat:
+        path: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
+      register: artifact1
+      failed_when: download1.checksum_src != artifact1.stat.checksum
+      changed_when: False
+
+# Copy artifact from tmp to host (and check)
+    - name: Copy File (Factory)
+      ansible.windows.win_copy:
+        backup: yes
+        src: "/tmp/bluence_server_latest/MDT/httpd-2.2.25-win32-x86-no_ssl.msi"
+        dest: "C:\\Users\\Administrador\\Desktop\\httpd-2.2.25-win32-x86-no_ssl.msi"
+      register: checksum1
+      failed_when: artifact1.stat.checksum != checksum1.checksum
+      
+    - name: Extract packages (Factory) with powershell module
+      ansible.windows.win_powershell:
+        script: |
+          Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.7z' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
+          
+    - name: Ansible check
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\prueba_temp'
+      register: my_folder
+      
+    - name: Update Soft link
+      ansible.windows.win_powershell:
+        script: |
+          New-Item -ItemType SymbolicLink -Path 'C:\Users\Administrador\Desktop\nuevo.lnk' -Target 'C:\Users\Administrador\Desktop\prueba_temp\nuevo\'  -Force
+
+    - name: check soft link
+      ansible.windows.win_powershell:
+        script: |
+          cd {{ uta }}; (Get-ChildItem | ? Target).Target
+      register: nlink
+      failed_when: "'{{ ruta }}' not in nlink.output"
+      changed_when: False
+      
+    - name: Print datetime before pause
+      run_once: true
+      debug:
+        msg: "{{ lookup('pipe', 'date') }}"
+    
+    - name: Pause for 5 minutes to build app cache
+      ansible.builtin.pause:
+        minutes: 5
+      
+    - name: Delete decompressed
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\prueba_temp'
+        state: absent
+      
+    - name: Delete msi
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi'
+        state: absent  
+        
+    - name: Delete soft link
+      ansible.windows.win_file:
+        path: 'C:\Users\Administrador\Desktop\nuevo.lnk'
+        state: absent 
+
+    - name: Empty Recycle Bin
+      ansible.windows.win_powershell:
+        script: |
+          Clear-RecycleBin -Force  
+      

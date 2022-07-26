@@ -1,0 +1,22 @@
+- name: Playbook de prueba  
+  hosts: win19
+  vars:
+    limit: 268435456
+  
+  tasks:
+        
+  - name: Comprobando que el sistema es Server 2019
+    win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
+    register: version
+    failed_when: "'Windows Server 2019' not in version.stdout"
+    changed_when: False
+    
+  - name : Get Bluence home drive size
+    ansible.windows.win_powershell:
+      script: | 
+        ((get-volume -DriveLetter $env:BLUENCE_HOME.substring(0,1)).SizeRemaining)
+    register: BLUENCE_HOME_SIZE
+    failed_when: BLUENCE_HOME_SIZE.output[0] > 268435456
+
+  - name : Return my_folder
+    debug: var="BLUENCE_HOME_SIZE.output[0]"

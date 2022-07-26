@@ -1,0 +1,28 @@
+- name: Playbook de prueba  
+  hosts: win19
+  tasks:
+    
+  - name: Host check PS Module PSCX
+    ansible.windows.win_powershell:
+      script: |
+        if (Get-Module -ListAvailable -Name PSCX) { Write-Host "Module PSCX exists, continue.." } else { Install-Module -Name Pscx -RequiredVersion 3.3.2 }
+
+  - name: Host check PS Module PSCX
+    ansible.windows.win_powershell:
+      script: |
+        if (Get-Module -ListAvailable -Name 7Zip4PowerShell) { Write-Host "Module 7Zip4PowerShell exists, continue.." } else { Install-Module -Name 7Zip4PowerShell -Force }
+
+  - name: Extract packages (Factory) with powershell module
+    ansible.windows.win_powershell:
+      script: |
+        Expand-7Zip -ArchiveFileName 'C:\Users\Administrador\Desktop\prueba.7z' -TargetPath 'C:\Users\Administrador\Desktop\prueba_temp'
+
+  - name: Ansible check
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\prueba_temp'
+    register: my_folder
+    
+  - name: A
+    debug: var=my_folder
+  - name: A
+    debug: var=uno

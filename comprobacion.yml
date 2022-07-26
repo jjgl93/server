@@ -1,0 +1,66 @@
+- name: Playbook de prueba  
+  hosts: win19
+  tasks:
+    
+  - name: Ansible check project tmp directory
+    delegate_to: localhost
+    stat:
+      path: /tmp/bluence_server_latest
+    register: my_folder
+
+  - name: "echo if project's last build directory already existed"
+    delegate_to: localhost
+    file:
+      path: /tmp/bluence_server_latest
+      state: absent
+    when: my_folder.stat.exists
+
+  - name: "Ansible Create Integration directory if not exists"
+    delegate_to: localhost
+    file:
+      path: /tmp/bluence_server_latest/LastPinned
+      state: directory
+      mode: 0755
+      recurse: true
+
+  - name: "Ansible Create tmp MDT directory if not exists"
+    delegate_to: localhost
+    file:
+      path: /tmp/bluence_server_latest/MDT
+      state: directory
+      mode: 0755
+      recurse: true
+
+  - name: Descargar archivo en localhost
+    delegate_to: localhost
+    get_url:
+      url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+      dest: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi" 
+    register: download
+ 
+  - name: Comprobar que se ha descargado el archivo en localhost
+    delegate_to: localhost
+    stat:
+      path: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
+    register: compdesc
+    failed_when: download.checksum_src != compdesc.stat.checksum
+    
+  - name: copiar archivo de localhost a host
+    ansible.windows.win_copy:
+      backup: yes
+      src: "/tmp/httpd-2.2.25-win32-x86-no_ssl.msi"
+      dest: "C:\\Users\\Administrador\\Desktop\\httpd-2.2.25-win32-x86-no_ssl.msi"
+    register: copyhost
+    failed_when: compdesc.stat.checksum != copyhost.checksum
+
+  - name: Ver variable
+    debug: var=download
+
+  - name: Ver variable
+    debug: var=download.checksum_src
+    
+  - name: Ver variable
+    debug: var=compdesc
+    
+  - name: Ver variable
+    debug: var=copyhost

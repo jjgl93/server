@@ -1,0 +1,175 @@
+- name: Playbook de prueba  
+  hosts: win19
+  vars:
+    archivo1: copy.txt
+    directorio: copy
+    
+  tasks:
+  
+  - name: Probar descarga localhost
+    delegate_to: localhost
+    get_url:
+      url: "https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi"
+      dest: "/tmp/" 
+        
+  - name: Comprobando que el sistema es Server 2019
+    win_command: cmd.exe /c systeminfo | find /i "Sistema Operativo"
+    register: version
+    failed_when: "'Windows Server 2019' not in version.stdout"
+    changed_when: False
+
+  - name: Crear Directorio
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Downloads\{{ directorio }}'
+      state: directory
+   
+  - name: Crear Archivo
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
+      state: touch
+      
+  - name: Copiar Directorio
+    win_copy:
+      src: C:\Users\Administrador\Downloads\{{ directorio }}
+      dest: C:\Users\Administrador\Desktop
+      remote_src: yes
+
+  - name: Copiar Archivo
+    win_copy:
+      src: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
+      dest: 'C:\Users\Administrador\Desktop\{{ archivo1 }}'
+      remote_src: yes
+
+  - name: Crear Directorio
+    ansible.windows.win_file:
+      path: C:\Users\Administrador\Desktop\copy2
+      state: directory
+    
+  - name: Crear archivo con CMD
+    win_command: cmd.exe /c type nul > C:\Users\Administrador\Desktop\copy2\prueba.txt
+
+  - name: Borrar archivo si existe
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\{{ archivo1 }}'
+      state: absent
+    
+  - name: Borrar Directorio
+    ansible.windows.win_file:
+      path: C:\Users\Administrador\Desktop\copy2
+      state: absent
+     
+  - name: Borrar Directorio
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\{{ directorio }}'
+      state: absent
+
+  - name: Comprobar si el MSI existe
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
+    register: msi
+    ignore_errors: true
+    
+  - name: Descargar MSI
+    win_get_url:
+      url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+      dest: C:\Users\Administrador\Desktop\httpd-2.2.25-win32-x86-no_ssl.msi
+    when: "'El sistema no puede encontrar el archivo especificado' in msi.stderr"
+  
+  - name: Parar servicio
+    win_service:
+      name: FontCache
+      state: stopped
+    
+  - name: Arrancar servicio
+    win_service:
+      name: FontCache
+      state: Started 
+      
+  - name: Añadir variable de entorno
+    win_environment:
+      state: present
+      name: NewVariable
+      value: New Value
+      level: machine
+    
+  - name: CMD servicios iniciados
+    win_command: cmd.exe /c sc query > C:\Users\Administrador\Desktop\running_services.txt  
+    register: services1
+    failed_when: "'FAILED' in services1.stderr"
+    
+  - name: Comprobar si existe datosRed
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\datosRed 
+    register: datosRed
+    ignore_errors: true
+    
+  - name: Crear Directorio si no existe
+    ansible.windows.win_file:
+      path: C:\Users\Administrador\Desktop\datosRed
+      state: directory
+    when: "'El sistema no puede encontrar el archivo especificado' in datosRed.stderr"
+    
+  - name: Comprobar si datos_red existe
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\datosRed\datos_red.txt  
+    register: existe
+    ignore_errors: true
+    
+  - name: CMD crear datos_red si no existe, no tocar si existe
+    win_command: cmd.exe /c ipconfig > C:\Users\Administrador\Desktop\datosRed\datos_red.txt  
+    when: "'El sistema no puede encontrar el archivo especificado' in existe.stderr"
+    
+      
+  - name: Borrar archivo si existe
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Downloads\{{ archivo1 }}'
+      state: absent
+    
+  - name: Borrar Directorio
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Downloads\{{ directorio }}'
+      state: absent
+      
+  - name: Comprobar si existe enlace simbolico
+    win_command: cmd.exe /c type C:\Users\Administrador\Downloads\datosRed 
+    register: enlacesim
+    ignore_errors: true
+    
+  - name: borrar directorio si existe
+    ansible.windows.win_file:
+      path: C:\Users\Administrador\Downloads\datosRed
+      state: absent
+    when: "'El sistema no puede encontrar el archivo especificado' not in enlacesim.stderr"
+  
+  - name: Enlace simbólico de datosRed a Downloads
+    win_command: cmd.exe /c Mklink/D C:\Users\Administrador\Downloads\datosRed C:\Users\Administrador\Desktop\datosRed
+    
+  - name: Ver variable
+    debug:
+      msg: "El directorio {{ directorio }} y el archivo {{ archivo1 }} se han creado y eliminado correctamente."
+
+  - name: Crear fecha.txt
+    win_command: cmd.exe /c DATE /T > C:\Users\Administrador\Desktop\fecha.txt
+    
+  - name: Modificar fecha.txt
+    ansible.windows.win_powershell:
+      script: |
+        (get-content C:\Users\Administrador\Desktop\fecha.txt) | foreach-object {$_ -replace "/", "-"} | set-content C:\Users\Administrador\Desktop\fecha.txt
+
+  - name: Guardar fecha en variable
+    win_command: cmd.exe /c type C:\Users\Administrador\Desktop\fecha.txt
+    register: fecha
+
+  - name: Comprobar si existe carpeta Backup
+    win_command: cmd.exe /c type "C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}" 
+    register: backupsino
+    ignore_errors: true
+        
+  - name: BACKUP BD SQL Server
+    win_command: cmd.exe /c Xcopy "C:\Program Files\Microsoft SQL Server" "C:\Users\Administrador\Desktop\backup-BD-{{fecha.stdout_lines}}" /E/H/C/I
+    when: "'El sistema no puede encontrar el archivo especificado' in backupsino.stderr"
+    
+  - name: Borrar fecha.txt
+    ansible.windows.win_file:
+      path: 'C:\Users\Administrador\Desktop\fecha.txt'
+      state: absent
+
+  - name: Vaciar papelera de reciclaje
+    win_command: cmd.exe /c rd /s /q C:\$Recycle.bin
