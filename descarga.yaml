@@ -27,12 +27,12 @@
         mode: 0755
         recurse: true
 
-- name: Example clone of a single branch
-  ansible.builtin.git:
-    repo: https://github.com/jjgl93/server.git
-    dest: /tmp/Descarga
-    single_branch: yes
-    version: v4
+    - name: Example clone of a single branch
+      ansible.builtin.git:
+        repo: https://github.com/jjgl93/server.git
+        dest: /tmp/Descarga
+        single_branch: yes
+        version: v4
 
 # Copy artifact and from tmp to host (and check)
 #    - name: Copy File (Factory)
