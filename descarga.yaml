@@ -30,7 +30,7 @@
     - name: Example clone of a single branch
       git:
         repo: https://github.com/jjgl93/server.git
-        dest: /tmp/Descarga
+        dest: "/tmp/Descarga"
         clone: yes
 #        archive: /tmp/Descarga\upgrade.zip
 
