@@ -31,6 +31,7 @@
       git:
         repo: https://github.com/jjgl93/server.git
         dest: /tmp/Descarga
+        clone: yes
 #        archive: /tmp/Descarga\upgrade.zip
 
 # Copy artifact and from tmp to host (and check)
