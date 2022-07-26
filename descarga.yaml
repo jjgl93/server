@@ -28,7 +28,7 @@
         recurse: true
 
     - name: Example clone of a single branch
-      ansible.builtin.git:
+      git:
         repo: https://github.com/jjgl93/server.git
         dest: /tmp/Descarga
 #        archive: /tmp/Descarga\upgrade.zip
