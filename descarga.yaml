@@ -31,7 +31,7 @@
       ansible.builtin.git:
         repo: https://github.com/jjgl93/server.git
         dest: /tmp/Descarga
-        single_branch: yes
+        archive: /tmp/Descarga\upgrade.zip
         version: v4
 
 # Copy artifact and from tmp to host (and check)
