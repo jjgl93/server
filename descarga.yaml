@@ -32,7 +32,6 @@
         repo: https://github.com/jjgl93/server.git
         dest: /tmp/Descarga
         archive: /tmp/Descarga\upgrade.zip
-        version: v4
 
 # Copy artifact and from tmp to host (and check)
 #    - name: Copy File (Factory)
