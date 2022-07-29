@@ -27,13 +27,30 @@
         mode: 0755
         recurse: true
 
-    - name: Example clone of a single branch
-      git:
-        repo: https://github.com/jjgl93/server.git
-        dest: "/tmp/Descarga"
-        clone: yes
-#        archive: /tmp/Descarga\upgrade.zip
+# Download artifact from sources
+    - name: Download last pinned build from TeamCity (INTEGRATION)
+      delegate_to: localhost
+      get_url:
+        url: "http://teamcity.isotrol.net:8111/repository/downloadAll/Energia_Cerv4projects_Revergy_Aela_Cs_LibSceneModel_Build/.lastSuccessful/artifacts.zip?guest=1"
+        dest: "/tmp/bluence_server_CS.zip"
+      register: download1
+# Check the Download last pinned build from TeamCity (INTEGRATION)
+    - name: Check the discharge of artifact
+      delegate_to: localhost
+      stat:
+        path: "/tmp/bluence_server_CS.zip"
+      register: artifact1
+      failed_when: download1.checksum_src != artifact1.stat.checksum
+      changed_when: False
 
+# Copy artifact from tmp to host (and check)
+    - name: Copy File (Integration)
+      ansible.windows.win_copy:
+        backup: yes
+        src: "/tmp/bluence_server_CS.zip"
+        dest: "C:\Users\Administrador\Desktop\bluence_server_CS.zip"
+      register: checksum1
+      failed_when: artifact1.stat.checksum != checksum1.checksum
 # Copy artifact and from tmp to host (and check)
 #    - name: Copy File (Factory)
 #      ansible.windows.win_copy:
