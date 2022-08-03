@@ -10,7 +10,8 @@
         repo: 'https://github.com/jjgl93/server.git'
         dest: /tmp
         single_branch: yes
-        version: master
+        archive: /tmp/git.zip
+        version: v1
 #    - git:
 #        repo: git://foosball.example.org/path/to/repo.git
 #        dest: /srv/checkout
