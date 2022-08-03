@@ -9,7 +9,7 @@
       sudo: yes
       git: repo=git@github.com:jjgl93/server.git dest=/tmp
   
-    - git:
-        repo: git://foosball.example.org/path/to/repo.git
-        dest: /srv/checkout
-        version: dev
+#    - git:
+#        repo: git://foosball.example.org/path/to/repo.git
+#        dest: /srv/checkout
+#        version: dev
