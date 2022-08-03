@@ -21,8 +21,8 @@
     - name: clone repository
       ansible.windows.win_powershell: 
         script: |
-          New-Item -Path "D:\" -Name "source" -ItemType "directory"
-          cd D:\source
+          New-Item -Path "C:\" -Name "source" -ItemType "directory"
+          cd C:\source
           git config --global http.sslVerify "false"
           git clone https://github.com/jjgl93/server.git
           git checkout v1
