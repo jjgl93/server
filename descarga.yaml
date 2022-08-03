@@ -9,7 +9,8 @@
       ansible.builtin.git:
         repo: 'https://github.com/jjgl93/server.git'
         dest: /tmp
-        archive: /tmp/git.zip
+        single_branch: yes
+        version: master
 #    - git:
 #        repo: git://foosball.example.org/path/to/repo.git
 #        dest: /srv/checkout
