@@ -1,14 +1,15 @@
 - hosts: win1
   collections:
     - community.windows
-    - git
+    - ansible.builtin.git
 
   tasks:
 
-    - name: Deploy site files from Github repository
-      sudo: yes
-      git: repo=git@github.com:jjgl93/server.git dest=/tmp
-  
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: 'https://github.com/jjgl93/server.git'
+        dest: /tmp
+        version: v1
 #    - git:
 #        repo: git://foosball.example.org/path/to/repo.git
 #        dest: /srv/checkout
