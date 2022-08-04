@@ -1,7 +1,6 @@
 - hosts: win1
   collections:
     - community.windows
-    - ansible.builtin.git
 
   tasks:
 
