@@ -9,12 +9,10 @@
       ansible.builtin.git:
         repo: https://github.com/jjgl93/server.git
         dest: /tmp
-        archive: /tmp/git.zip
-        single_branch: yes
+        archive: /tmp/prueba_git.zip
         version: v1
 
     - name: Copy File
       ansible.windows.win_copy:
-        backup: yes
-        src: "/tmp/git.zip"
+        src: "/tmp/prueba_git.zip"
         dest: "C:\Users\Administrador\Desktop\git.zip"
