@@ -1,9 +1,14 @@
 - hosts: win1
   collections:
     - community.windows
+    
   tasks:
+  
     - name: Git checkout
       delegate_to: localhost
       ansible.builtin.git:
         repo: https://github.com/jjgl93/server.git
-        dest: /tmp/Descarga
+        dest: /tmp
+        archive: /tmp/git.zip
+        single_branch: yes
+        version: v1
