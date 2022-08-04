@@ -12,3 +12,9 @@
         archive: /tmp/git.zip
         single_branch: yes
         version: v1
+
+    - name: Copy File
+      ansible.windows.win_copy:
+        backup: yes
+        src: "/tmp/git.zip"
+        dest: "C:\Users\Administrador\Desktop"
