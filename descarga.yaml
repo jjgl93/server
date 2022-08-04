@@ -1,9 +1,7 @@
 - hosts: win1
   collections:
     - community.windows
-
   tasks:
-
     - name: Git checkout
       ansible.builtin.git:
         repo: https://github.com/jjgl93/server.git
