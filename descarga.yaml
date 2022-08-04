@@ -12,7 +12,9 @@
         archive: /tmp/prueba_git.zip
         version: v1
 
-    - name: Copy File
+    - name: copiar archivo de localhost a host
       ansible.windows.win_copy:
+        backup: yes
         src: "/tmp/prueba_git.zip"
-        dest: "C:\Users\Administrador\Desktop\git.zip"
+        dest: "C:\\Users\\Administrador\\Desktop\\prueba_git.zip"
+      register: copyhost
