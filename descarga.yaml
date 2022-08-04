@@ -31,9 +31,10 @@
         repo: 'https://github.com/jjgl93/server.git'
         dest: '/tmp/Descarga-Git'
         version: v1
+        archive: '/tmp/Descarga-Git/git.zip'
 
     - name: copiar archivo de localhost a host
       ansible.windows.win_copy:
         backup: yes
-        src: "/tmp/Descarga-Git/win.ps1"
+        src: "/tmp/Descarga-Git/git.zip"
         dest: "C:\\Users\\Administrador\\Desktop\\"
