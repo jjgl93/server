@@ -28,14 +28,13 @@
     - name: Git checkout
       delegate_to: localhost
       ansible.builtin.git:
-        repo: https://github.com/jjgl93/server.git
-        dest: /tmp
-        archive: /tmp/Descarga-Git/prueba_git.zip
+        repo: 'https://github.com/jjgl93/server.git'
+        dest: '/tmp/Descarga-Git'
         version: v1
 
-    - name: copiar archivo de localhost a host
-      ansible.windows.win_copy:
-        backup: yes
-        src: "/tmp/Descarga-Git/prueba_git.zip"
-        dest: "C:\\Users\\Administrador\\Desktop\\prueba_git.zip"
-      register: copyhost
+#    - name: copiar archivo de localhost a host
+#      ansible.windows.win_copy:
+#        backup: yes
+#        src: "/tmp/Descarga-Git/prueba_git.zip"
+#        dest: "C:\\Users\\Administrador\\Desktop\\prueba_git.zip"
+#      register: copyhost
