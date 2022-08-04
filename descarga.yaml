@@ -38,3 +38,8 @@
         backup: yes
         src: "/tmp/Descarga-Git/git.zip"
         dest: "C:\\Users\\Administrador\\Desktop\\"
+
+    - name: Extract packages with powershell module
+      ansible.windows.win_powershell:
+        script: |
+          Expand-7Zip -ArchiveFileName 'C:\\Users\\Administrador\\Desktop\\git.zip' -TargetPath 'C:\\Users\\Administrador\\Desktop\\git_tmp'
