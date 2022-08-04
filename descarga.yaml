@@ -17,4 +17,4 @@
       ansible.windows.win_copy:
         backup: yes
         src: "/tmp/git.zip"
-        dest: "C:\Users\Administrador\Desktop"
+        dest: "C:\Users\Administrador\Desktop\git.zip"
