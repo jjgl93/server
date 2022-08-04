@@ -6,17 +6,5 @@
 
     - name: Git checkout
       ansible.builtin.git:
-        repo: 'https://github.com/jjgl93/server.git'
-        dest: /tmp
-        single_branch: yes
-        archive: /tmp/git.zip
-        
- #   - name: Update soft link with powershell module
- #     ansible.windows.win_powershell:
- #       script: |
- #         git clone https://github.com/jjgl93/server.git
-          
-#    - git:
-#        repo: git://foosball.example.org/path/to/repo.git
-#        dest: /srv/checkout
-#        version: dev
+        repo: https://github.com/jjgl93/server.git
+        dest: /tmp/Descarga
