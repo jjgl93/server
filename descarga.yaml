@@ -10,7 +10,6 @@
         dest: /tmp
         single_branch: yes
         archive: /tmp/git.zip
-        version: v1
         
  #   - name: Update soft link with powershell module
  #     ansible.windows.win_powershell:
