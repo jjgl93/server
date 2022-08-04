@@ -5,27 +5,18 @@
 
   tasks:
 
-#    - name: Git checkout
-#      ansible.builtin.git:
-#        repo: 'https://github.com/jjgl93/server.git'
-#        dest: /tmp
-#        single_branch: yes
-#        archive: /tmp/git.zip
-#        version: v1
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: 'https://github.com/jjgl93/server.git'
+        dest: /tmp
+        single_branch: yes
+        archive: /tmp/git.zip
+        version: v1
         
  #   - name: Update soft link with powershell module
  #     ansible.windows.win_powershell:
  #       script: |
  #         git clone https://github.com/jjgl93/server.git
-
-    - name: clone repository
-      ansible.windows.win_powershell: 
-        script: |
-          New-Item -Path "C:\" -Name "source" -ItemType "directory"
-          cd C:\source
-          git config --global http.sslVerify "false"
-          git clone https://github.com/jjgl93/server.git
-          git checkout v1
           
 #    - git:
 #        repo: git://foosball.example.org/path/to/repo.git
