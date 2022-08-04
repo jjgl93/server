@@ -3,6 +3,7 @@
     - community.windows
   tasks:
     - name: Git checkout
+      delegate_to: localhost
       ansible.builtin.git:
         repo: https://github.com/jjgl93/server.git
         dest: /tmp/Descarga
