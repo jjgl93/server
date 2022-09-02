@@ -62,8 +62,7 @@
         src: "{{ downloadFactoryIntegration.dest }}"
         dest: "C:\\Users\\Administrador\\Desktop\\bluence_server_INTEGRATION.zip"
       register: copy2hostFactoryIntegration
-
-
+      
 #    - name: Extract packages with powershell module
 #      ansible.windows.win_powershell:
 #        script: |
