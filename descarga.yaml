@@ -54,7 +54,7 @@
         src: "{{ downloadFactoryBase.dest }}"
         dest: "C:\\Users\\Administrador\\Desktop\\bluence_server_FACTORY.zip"
       register: copy2hostFactoryBase
-	  
+      
 # Copy and check downloaded artifact  from tmp to host
     - name: Copy artifact FACTORY to host
       ansible.windows.win_copy:
