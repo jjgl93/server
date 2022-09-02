@@ -4,42 +4,67 @@
     
   tasks:
   
-    - name: Ansible check project tmp directory
+# Download artifact from sources
+    - name: Download Skeleton package from MDT IIS (FACTORY)
       delegate_to: localhost
-      stat:
-        path: /tmp/Descarga-Git
-      register: my_folder
+      get_url:
+        url: "http://10.4.2.82:8008/MDT_SHARED/ISOTROL%20Bluence%20Full%20Package%20Latest/bluence_server_skeleton.7z"
+        dest: "/tmp/bluence_server/bluence_server_SKELETON.7z"
+      register: downloadFactorySkeleton
 
-    - name: "echo if project's last build directory already existed"
+# Download artifact from sources
+    - name: "Download build from TeamCity (FACTORY)"
       delegate_to: localhost
-      file:
-        path: /tmp/Descarga-Git
-        state: absent
-      when: my_folder.stat.exists
+      get_url:
+        url: "http://teamcity.isotrol.net:8111/repository/downloadAll/CerV4_Version38x_Integration_BluenceServer/401230:id/artifacts.zip?guest=1"
+        dest: "/tmp/bluence_server/bluence_server_FACTORY.zip"
+      register: downloadFactoryBase
 
-    - name: "Ansible Create Integration directory if not exists"
+# Download artifact from sources
+    - name: "Download build from TeamCity (INTEGRATION)"
       delegate_to: localhost
-      file:
-        path: /tmp/Descarga-Git
-        state: directory
-        mode: 0755
-        recurse: true
-        
-    - name: Git checkout
-      delegate_to: localhost
-      ansible.builtin.git:
-        repo: 'https://github.com/jjgl93/server.git'
-        dest: '/tmp/Descarga-Git'
-        version: v1
-        archive: '/tmp/Descarga-Git/git.zip'
+      get_url:
+        url: "http://teamcity.isotrol.net:8111/repository/download/CerV4_ProyectosClientes_BluenceRevTest38x_IntegrationDev_Deploy/401848:id/bluence_server_BLUENCE_REV_TEST_dev.7z?guest=1"
+        dest: "/tmp/bluence_server/bluence_server_INTEGRATION.zip"
+      register: downloadFactoryIntegration
 
-    - name: copiar archivo de localhost a host
+### DESCARGAR TODO COMPLETO Y SACAR TODOS LOS COLLECTOR.ZIP
+
+# Download artifact from sources
+#    - name:  Download last DB package from GIT (FACTORY)
+#      ansible.builtin.git:
+#        repo: "{{ GIT_ARTIFACT_URL }}"
+#        dest: "/tmp/bluence_server_{{ TC_ARTIFACT }}/bluence_server_DB_{{ TC_PROJECT_NAME }}"
+#        single_branch: yes
+#        version: master
+#      register: downloadFactoryDB
+
+# Copy and check downloaded artifact  from tmp to host
+    - name: Copy artifact SKELETON to host
       ansible.windows.win_copy:
         backup: yes
-        src: "/tmp/Descarga-Git/git.zip"
-        dest: "C:\\Users\\Administrador\\Desktop\\"
+        src: "{{ downloadFactorySkeleton.dest }}"
+        dest: "C:\\Users\\Administrador\\Desktop\\bluence_server_SKELETON.7z"
+      register: copy2hostSkeleton
 
-    - name: Extract packages with powershell module
-      ansible.windows.win_powershell:
-        script: |
-          Expand-7Zip -ArchiveFileName 'C:\\Users\\Administrador\\Desktop\\git.zip' -TargetPath 'C:\\Users\\Administrador\\Desktop\\git_tmp'
+# Copy and check downloaded artifact  from tmp to host
+    - name: Copy artifact FACTORY to host
+      ansible.windows.win_copy:
+        backup: yes
+        src: "{{ downloadFactoryBase.dest }}"
+        dest: "C:\\Users\\Administrador\\Desktop\\bluence_server_FACTORY.zip"
+      register: copy2hostFactoryBase
+	  
+# Copy and check downloaded artifact  from tmp to host
+    - name: Copy artifact FACTORY to host
+      ansible.windows.win_copy:
+        backup: yes
+        src: "{{ downloadFactoryIntegration.dest }}"
+        dest: "C:\\Users\\Administrador\\Desktop\\bluence_server_INTEGRATION.zip"
+      register: copy2hostFactoryIntegration
+
+
+#    - name: Extract packages with powershell module
+#      ansible.windows.win_powershell:
+#        script: |
+#          Expand-7Zip -ArchiveFileName 'C:\\Users\\Administrador\\Desktop\\git.zip' -TargetPath 'C:\\Users\\Administrador\\Desktop\\git_tmp'
