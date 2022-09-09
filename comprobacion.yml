@@ -1,5 +1,5 @@
 - name: Playbook de prueba  
-  hosts: win19
+  hosts: win1
   tasks:
     
   - name: Ansible check project tmp directory
