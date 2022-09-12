@@ -9,6 +9,7 @@
         script: |
           Get-ChildItem -Path C:\Users\Administrador\Desktop\ *.lnk
       register: enlace
+      failed_when: enlace.output.Attributes.exists
       
     - name: Print Bluence version and target version
       debug: var=enlace
